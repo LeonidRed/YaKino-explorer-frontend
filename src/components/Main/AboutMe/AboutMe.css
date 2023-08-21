@@ -1,0 +1,125 @@
+.about-me {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-me__container {
+  max-width: 1280px;
+  width: 100%;
+  padding: 105px 70px 103px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 959px) {
+  .about-me__container {
+    padding: 90px 50px;
+  }
+}
+
+.about-me__header {
+  margin: 0 0 66px 0;
+  padding: 0 0 23px 0;
+  width: 100%;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.04em;
+  border-bottom: 1px solid black;
+}
+
+.about-me__info {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.about-me__info-column {
+  flex-direction: column;
+}
+
+.about-me__title {
+  margin: 0;
+  padding: 0 0 18px 0;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+}
+
+@media screen and (max-width: 959px) {
+  .about-me__title {
+    font-size: 40px;
+    line-height: 40px;
+    padding: 0 0 16px 0;
+  }
+}
+
+.about-me__subtitle {
+  margin: 0;
+  padding: 0 0 26px 0;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+@media screen and (max-width: 959px) {
+  .about-me__subtitle {
+    font-size: 12px;
+    line-height: 18px;
+    padding: 0 0 20px 0;
+  }
+}
+
+.about-me__text {
+  margin: 0;
+  padding: 0 0 99px 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  max-width: 600px;
+}
+
+@media screen and (max-width: 1050px) {
+  .about-me__text {
+    max-width: 470px;
+  }
+}
+
+@media screen and (max-width: 959px) {
+  .about-me__text {
+    font-size: 12px;
+    line-height: 18px;
+    max-width: 364px;
+    padding: 0 0 84px 0;
+  }
+}
+
+.about-me__link {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.about-me__link:hover {
+  opacity: 0.7;
+}
+
+.about-me__avatar {
+  border-radius: 10px;
+  max-width: 270px;
+  min-height: 327px;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media screen and (max-width: 959px) {
+  .about-me__avatar {
+    max-width: 255px;
+    min-height: 307px;
+  }
+}
