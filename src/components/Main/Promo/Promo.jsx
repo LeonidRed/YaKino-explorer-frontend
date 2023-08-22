@@ -6,7 +6,7 @@ export default function Promo() {
     <section className="promo">
       <div className="promo__container">
         <div className="promo__column">
-          <h1 className="promo__header">Учебный проект студента факультета&nbsp;Веб-разработки.</h1>
+          <h1 className="promo__header">Учебный проект студента факультета Веб-разработки.</h1>
           <p className="promo__text">Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
           <a className='promo__link' href='#about-project'>Узнать&nbsp;больше</a>
         </div>

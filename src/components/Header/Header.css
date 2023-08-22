@@ -23,6 +23,12 @@
   }
 }
 
+@media screen and (max-width: 664px) {
+  .header__container {
+    padding: 18px 14px 15px;
+  }
+}
+
 .header__main-link {
   margin: 0;
   padding: 0;
@@ -36,7 +42,12 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
 
+@media screen and (max-width: 664px) {
+  .header__items {
+    gap: 14px;
+  }
 }
 
 .header__item-signup {
@@ -47,6 +58,13 @@
   font-size: 12px;
   line-height: 16px;
   font-weight: 500;
+}
+
+@media screen and (max-width: 664px) {
+  .header__item-signup {
+    font-size: 10px;
+    line-height: 16px;
+  }
 }
 
 .header__item-signup:hover {
@@ -63,6 +81,14 @@
   font-size: 12px;
   line-height: 16px;
   font-weight: 500;
+}
+
+@media screen and (max-width: 664px) {
+  .header__item-signin {
+    font-size: 10px;
+    line-height: 16px;
+    padding: 5px 12px;
+  }
 }
 
 .header__item-signin:hover {
