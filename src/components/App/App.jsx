@@ -8,6 +8,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import PageNotFound from '../PageNotFound/PageNotFound';
 
 function App() {
   return (
@@ -17,20 +18,27 @@ function App() {
           <>
             <Header />
             <Main />
+            <Footer />
+
           </>
         } />
+
         {/* <Route path="/movies" element={<Movies />} /> */}
         {/* <Route path="/saved-movies" element={<SavedMovies />} /> */}
+
         <Route path="/profile" element={
           <>
             <Header />
             {/* <Profile />  */}
+            <Footer />
           </>
         } />
+
         {/* <Route path="/signin" element={<Login />} /> */}
         {/* <Route path="/signup" element={<Register />} /> */}
+
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
-      <Footer />
 
     </div >
   );
