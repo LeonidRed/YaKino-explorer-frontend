@@ -68,7 +68,7 @@
 }
 
 .header__item-signup:hover {
-  opacity: 0.7;
+  opacity: 0.3;
 }
 
 .header__item-signin {
@@ -92,5 +92,5 @@
 }
 
 .header__item-signin:hover {
-  opacity: 0.7;
+  opacity: 0.3;
 }

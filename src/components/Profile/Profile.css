@@ -1,0 +1,150 @@
+.profile {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.profile__container {
+  max-width: 410px;
+}
+
+.profile__header {
+  margin: 0;
+  padding: 74px 0 0 0;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29.05px;
+}
+
+@media screen and (max-width: 959px) {
+  .profile__header {
+    padding: 236px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 664px) {
+  .profile__header {
+    padding: 70px 0 0 0;
+  }
+}
+
+.profile__form {
+  display: flex;
+  flex-direction: column;
+  padding: 123px 0 0 0;
+}
+
+@media screen and (max-width: 959px) {
+  .profile__form {
+    padding: 96px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 664px) {
+  .profile__form {
+    padding: 80px 0 0 0;
+  }
+}
+
+
+.profile__inputs {
+  display: flex;
+  flex-direction: column;
+  width: 410px;
+}
+
+@media screen and (max-width: 664px) {
+  .profile__inputs {
+    width: 260px;
+  }
+}
+
+.profile__input-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #E8E8E8;
+  padding: 0 0 16px 0;
+}
+
+.profile__input-email {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 17px 0 0 0;
+}
+
+.profile__label {
+  margin: 0;
+  padding: 0;
+  width: 130px;
+  font-size: 11px;
+  line-height: 13.31px;
+  font-weight: 500;
+  text-align: start;
+}
+
+.profile__input {
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+  width: 120px;
+  font-size: 11px;
+  line-height: 13.31px;
+  text-align: end;
+}
+
+
+.profile__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 220px 0 0 0;
+  font-size: 13px;
+  line-height: 15.73px;
+}
+
+@media screen and (max-width: 959px) {
+  .profile__buttons {
+    padding: 210px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 664px) {
+  .profile__buttons {
+    padding: 379px 0 0 0;
+    font-size: 12px;
+    line-height: 14.52px;
+  }
+}
+
+
+.profile__button-edit {
+  background: none;
+  border: none;
+  /* font-size: 13px;
+  line-height: 15.73px; */
+}
+
+.profile__button-edit:hover {
+  cursor: pointer;
+  opacity: 0.3;
+}
+
+.profile__button-exit {
+  background: none;
+  border: none;
+  /* font-size: 13px;
+  line-height: 15.73px; */
+  color: #FF3055;
+}
+
+.profile__button-exit:hover {
+  cursor: pointer;
+  opacity: 0.3;
+}

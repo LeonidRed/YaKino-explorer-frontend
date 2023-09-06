@@ -1,0 +1,41 @@
+.profile-logo {
+  text-decoration: none;
+  width: 100px;
+  height: 32px;
+  border-radius: 40px;
+  position: relative;
+  display: flex;
+  box-shadow: 0 0 20px #F9F9F9;
+}
+
+@media screen and (max-width: 959px) {
+  .profile-logo__profile {
+    display: none;
+  }
+}
+
+.profile-logo__profile:hover {
+  cursor: pointer;
+  opacity: 0.3;
+}
+
+.profile-logo__account {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 12px;
+  align-self: center;
+  padding: 0 0 0 11px;
+  color: #000000;
+}
+
+.profile-logo__account-icon {
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  height: 26px;
+  width: 26px;
+  border-radius: 50px;
+  background: url('../../images/icon__COLOR_icon-main.svg') no-repeat center;
+  background-color: rgba(249, 249, 249, 1);
+  background-size: 10.38px 10.67px;
+}

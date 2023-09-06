@@ -98,6 +98,11 @@
   border-radius: 3px;
 }
 
+.register__button:hover {
+  cursor: pointer;
+  opacity: 0.3;
+}
+
 @media screen and (max-width: 664px) {
   .register__button {
     padding: 15px 68px;
@@ -130,6 +135,10 @@
   font-size: 14px;
   color: #3456F3;
   text-decoration: none;
+}
+
+.register__link:hover {
+  opacity: 0.3;
 }
 
 @media screen and (max-width: 664px) {

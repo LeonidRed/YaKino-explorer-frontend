@@ -51,6 +51,11 @@
   width: 100%;
 }
 
+.page-not-found__link:hover {
+  opacity: 0.3;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 959px) {
   .page-not-found__link {
     bottom: 222px;
