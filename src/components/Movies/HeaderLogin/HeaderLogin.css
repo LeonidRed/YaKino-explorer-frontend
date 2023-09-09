@@ -2,7 +2,7 @@
   padding: 18px 70px;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .header-login {
     padding: 18px 30px;
   }
@@ -27,7 +27,7 @@
   padding: 0 0 0 55px;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .header-login__movies-list {
     display: none;
   }
@@ -59,7 +59,7 @@
   box-shadow: 0 0 20px #F9F9F9;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .header-login__profile {
     display: none;
   }
@@ -95,7 +95,7 @@
   display: none;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .header-login__burger {
     border: none;
     display: flex;

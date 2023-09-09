@@ -20,7 +20,7 @@
   line-height: 29.05px;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .profile__header {
     padding: 236px 0 0 0;
   }
@@ -38,7 +38,7 @@
   padding: 123px 0 0 0;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .profile__form {
     padding: 96px 0 0 0;
   }
@@ -99,6 +99,10 @@
   text-align: end;
 }
 
+.profile__input:focus {
+  outline: none;
+  border-bottom: 1px solid #3456F3;
+}
 
 .profile__buttons {
   display: flex;
@@ -109,7 +113,7 @@
   line-height: 15.73px;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .profile__buttons {
     padding: 210px 0 0 0;
   }
@@ -138,9 +142,9 @@
 
 .profile__button-exit {
   background: none;
-  border: none;
-  /* font-size: 13px;
-  line-height: 15.73px; */
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 15.73px;
   color: #FF3055;
 }
 

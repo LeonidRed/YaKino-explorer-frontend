@@ -12,7 +12,7 @@
   margin: 70px 0 0 0;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .login__container {
     margin: 232px 0 0 0;
   }
@@ -29,6 +29,10 @@
 
 .login__logo {
   padding: 0 0 40px 0;
+}
+
+.login__logo:hover {
+  opacity: 0.3
 }
 
 @media screen and (max-width: 664px) {
@@ -75,6 +79,11 @@
   height: 30px;
   background: none;
   border-bottom: 1px solid #E8E8E8;
+}
+
+.login__input:focus {
+  outline: none;
+  border-bottom: 1px solid #3456F3;
 }
 
 .login__button {

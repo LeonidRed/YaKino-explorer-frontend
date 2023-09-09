@@ -8,13 +8,13 @@
   box-shadow: 0 0 20px #F9F9F9;
 }
 
-@media screen and (max-width: 959px) {
-  .profile-logo__profile {
+@media screen and (max-width: 768px) {
+  .profile-logo {
     display: none;
   }
 }
 
-.profile-logo__profile:hover {
+.profile-logo:hover {
   cursor: pointer;
   opacity: 0.3;
 }

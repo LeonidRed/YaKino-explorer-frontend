@@ -14,7 +14,7 @@
   flex-direction: column;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .footer__container {
     padding: 70px 30px 20px;
   }
@@ -90,6 +90,7 @@
 .footer__menu-item {
   text-decoration: none;
   font-size: 13px;
+  color: #000000;
 }
 
 .footer__menu-item:hover {

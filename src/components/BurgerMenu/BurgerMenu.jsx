@@ -21,7 +21,7 @@ export default function BurgerMenu() {
 
         <ProfileLogo />
 
-        <button className="burger-menu__close-btn"></button>
+        <button className="burger-menu__close-btn" type="button"></button>
       </div>
     </article>
   )

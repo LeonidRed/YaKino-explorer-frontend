@@ -1,5 +1,6 @@
 .saved-movies-card {
   width: 100%;
+  list-style-type: none;
 }
 
 .saved-movies-card__link {
@@ -42,6 +43,7 @@
 }
 
 .saved-movies-card__del-btn {
+  background: url(../../../images/del-fav-card.svg) no-repeat center;
   background-color: #fff;
   width: 24px;
   height: 24px;
@@ -50,7 +52,6 @@
 }
 
 .saved-movies-card__del-btn:hover {
-  background: url(../../../images/del-fav-card.png) no-repeat center;
   cursor: pointer;
   opacity: 0.3;
 }

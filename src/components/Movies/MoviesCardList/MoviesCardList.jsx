@@ -4,7 +4,7 @@ import MoviesCard from '../MoviesCard/MoviesCard'
 
 export default function MoviesCardList() {
   return (
-    <section className="movies-card-list">
+    <ul className="movies-card-list">
       <MoviesCard />
       <MoviesCard />
       <MoviesCard />
@@ -18,6 +18,6 @@ export default function MoviesCardList() {
       <MoviesCard />
       <MoviesCard />
       <MoviesCard />
-    </section>
+    </ul>
   );
 };

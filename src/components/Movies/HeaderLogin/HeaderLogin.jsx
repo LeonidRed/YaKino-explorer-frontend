@@ -3,8 +3,11 @@ import logo from '../../../images/header-logo.svg';
 import { Link } from 'react-router-dom';
 import BurgerMenu from '../../BurgerMenu/BurgerMenu';
 import ProfileLogo from '../../ProfileLogo/ProfileLogo';
+import React from 'react';
 
 export default function HeaderLogin() {
+  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
+
   return (
     <header className="header-login">
       <div className="header-login__container">
@@ -24,7 +27,7 @@ export default function HeaderLogin() {
           <div className='header-login__account-icon'></div>
         </Link>
 
-        <button className="header-login__burger" />
+        <button className="header-login__burger" type="button" />
 
         {/* пока нет логики компонент BurgerMenu надо раскомментировать вручную */}
         {/* <BurgerMenu /> */}
