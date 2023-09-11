@@ -1,6 +1,5 @@
 import './Header.css';
 import logo from '../../images/header-logo.svg';
-// import profile_img from '../../images/profile.png';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function Header(props) {
@@ -24,17 +23,7 @@ export default function Header(props) {
           </ul>
         </nav>
 
-
       </div>
     </header>
   )
 }
-
-/* <div className="header__movies">
-<Link to="/movies" className="">Фильмы</Link>
-<Link to="/saved_movies" className="">Сохраненные фильмы</Link>
-</div>
-<div className="header__profile">
-<p className="header__user-email">{props.userEmail}</p>
-<Link to="/profile" className="header__profile"><img className="header__profile-logo" src={profile_img} alt="Логотип профиля" /></Link>
-</div> */

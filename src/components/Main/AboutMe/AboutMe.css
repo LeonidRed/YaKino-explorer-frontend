@@ -14,9 +14,15 @@
   align-items: center;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .about-me__container {
     padding: 90px 50px;
+  }
+}
+
+@media screen and (max-width: 664px) {
+  .about-me__container {
+    padding: 70px 14px;
   }
 }
 
@@ -30,10 +36,25 @@
   border-bottom: 1px solid black;
 }
 
+@media screen and (max-width: 664px) {
+  .about-me__header {
+    margin: 0 0 60px 0;
+    padding: 0 0 28px 0;
+    font-size: 18px;
+  }
+}
+
 .about-me__info {
   display: flex;
   width: 100%;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 664px) {
+  .about-me__info {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 }
 
 .about-me__info-column {
@@ -49,11 +70,19 @@
   letter-spacing: -0.04em;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .about-me__title {
     font-size: 40px;
     line-height: 40px;
     padding: 0 0 16px 0;
+  }
+}
+
+@media screen and (max-width: 664px) {
+  .about-me__title {
+    font-size: 30px;
+    line-height: 36.31px;
+    padding: 0 0 20px 0;
   }
 }
 
@@ -65,11 +94,18 @@
   line-height: 20px;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .about-me__subtitle {
     font-size: 12px;
     line-height: 18px;
     padding: 0 0 20px 0;
+  }
+}
+
+@media screen and (max-width: 664px) {
+  .about-me__subtitle {
+    font-size: 11px;
+    line-height: 16px;
   }
 }
 
@@ -88,12 +124,20 @@
   }
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .about-me__text {
     font-size: 12px;
     line-height: 18px;
     max-width: 364px;
     padding: 0 0 84px 0;
+  }
+}
+
+@media screen and (max-width: 664px) {
+  .about-me__text {
+    font-size: 11px;
+    line-height: 16px;
+    padding: 0 0 40px 0;
   }
 }
 
@@ -103,10 +147,11 @@
   text-decoration: none;
   font-weight: 500;
   font-size: 14px;
+  color: #000000;
 }
 
 .about-me__link:hover {
-  opacity: 0.7;
+  opacity: 0.3;
 }
 
 .about-me__avatar {
@@ -117,9 +162,17 @@
   object-fit: contain;
 }
 
-@media screen and (max-width: 959px) {
+@media screen and (max-width: 768px) {
   .about-me__avatar {
     max-width: 255px;
     min-height: 307px;
+  }
+}
+
+@media screen and (max-width: 664px) {
+  .about-me__avatar {
+    max-width: 292px;
+    min-height: 352px;
+    padding: 0 0 40px 0;
   }
 }
