@@ -103,6 +103,12 @@
   opacity: 0.3;
 }
 
+.login__button-disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+  pointer-events: none
+}
+
 @media screen and (max-width: 664px) {
   .login__button {
     padding: 15px 113px;

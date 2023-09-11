@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import HeaderLogin from '../Movies/HeaderLogin/HeaderLogin';
 import Footer from '../Footer/Footer';
 
-export default function Profile() {
+export default function Profile(props) {
   return (
     <>
       <HeaderLogin />
@@ -30,7 +30,7 @@ export default function Profile() {
 
             <div className="profile__buttons">
               <button className="profile__button-edit" type="submit">Редактировать</button>
-              <Link to="/" className="profile__button-exit">Выйти из аккаунта</Link>
+              <Link to="/" className="profile__button-exit" onClick={props.userSignOut}>Выйти из аккаунта</Link>
             </div>
 
           </form>
