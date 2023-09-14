@@ -5,7 +5,7 @@ import React from 'react';
 
 
 export default function Register(props) {
-  console.log(props);
+  // console.log(props);
 
   const [formValue, setFormValue] = React.useState({
     name: '',
@@ -13,7 +13,7 @@ export default function Register(props) {
     password: '',
   });
 
-  console.log(formValue);
+  // console.log(formValue);
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -74,7 +74,7 @@ export default function Register(props) {
             className="register__input"
             id="input-pass"
             name="password"
-            type="text"
+            type="password"
             // defaultValue="••••••••••••••" 
             value={formValue.password}
             onChange={handleChange}

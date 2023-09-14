@@ -13,23 +13,25 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"
 import PageNotFound from '../PageNotFound/PageNotFound';
 import * as auth from '../../utils/auth';
 import React from 'react';
+import { CurrentUserContext } from "../../contexts/CurrentUserContext"
 
 function App() {
 
   const navigate = useNavigate()
   const [isLogged, setIsLogged] = React.useState(false)
+  const [currentUser, setCurrentUser] = React.useState({})
 
   console.log('isLogged start ', isLogged);
 
-  React.useEffect(() => {
-    // isLogged &&
-    // Promise.all([api.getUserInfo(), api.getInitialCards()])
-    //   .then(([user, cards]) => {
-    //     setCurrentUser(user)
-    //     setCards(cards)
-    //   })
-    //   .catch(err => console.log(err))
-  }, [isLogged])
+  // React.useEffect(() => {
+  //   isLogged &&
+  //   Promise.all([api.getUserInfo(), api.getInitialCards()])
+  //     .then(([user, cards]) => {
+  //       setCurrentUser(user)
+  //       setCards(cards)
+  //     })
+  //     .catch(err => console.log(err))
+  // }, [isLogged])
 
   // проверка токена
   React.useEffect(() => {
@@ -40,13 +42,15 @@ function App() {
       if (jwt) {
         // проверим токен
         auth.checkToken(jwt)
-          .then((res) => {
-            if (res) {
-              const userData = {
-                email: res.email
-              }
+          .then((user) => {
+            if (user) {
+              console.log(user);
+              // const userData = {
+              //   email: res.email
+              // }
               // авторизуем пользователя
               setIsLogged(true)
+              setCurrentUser(user)
               // setUserEmail(userData.email)
               navigate("/movies", { replace: true })
             }
@@ -57,14 +61,17 @@ function App() {
       setIsLogged(false)
       // setUserEmail('')
     }
-  }, [])
+  }, [isLogged])
 
   function handleRegisterUser(name, email, password) {
     auth.signup(name, email, password)
-      .then(() => {
+      .then((token) => {
+        // console.log(token);
         // setInfoTooltipPopupOpen(true)
         // setTooltipImage(goodAuth)
         // setTooltipText('Вы успешно зарегистрировались!')
+        localStorage.setItem('token', token.token)
+        setIsLogged(true)
         navigate('/movies', { replace: true });
       })
       .catch(err => {
@@ -93,47 +100,59 @@ function App() {
   }
 
   function userSignOut() {
+    setIsLogged(false)
     localStorage.removeItem('token')
+  }
+
+  function handleUpdateUser(data) {
+    auth.editProfile(data)
+      .then((res) => {
+        setCurrentUser(res)
+      })
+      .catch((err) => console.log(err))
   }
 
 
   return (
-    <div className="page">
-      {/* <main className='main'> */}
-      <Routes>
-        {/* <Route path="*" element={<Navigate to={isLogged ? "/" : "/sign-in"} />} /> */}
-        <Route path="/" element={<Main />} />
-        <Route path="/movies" element={
-          <>
-            <ProtectedRoute
-              element={Movies}
-              isLogged={isLogged}
-            />
-          </>
-        } />
-        <Route path="/saved-movies" element={
-          <>
-            <ProtectedRoute
-              element={SavedMovies}
-              isLogged={isLogged}
-            />
-          </>
-        } />
-        <Route path="/profile" element={
-          <>
-            <ProtectedRoute
-              element={Profile}
-              isLogged={isLogged}
-              userSignOut={userSignOut}
-            />
-          </>
-        } />
-        <Route path="/signin" element={<Login onLogin={handleLoginUser} />} />
-        <Route path="/signup" element={<Register onRegister={handleRegisterUser} />} />
-        <Route path="/*" element={<PageNotFound />} />
-      </Routes>
-      {/* </main> */}
-    </div >
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        {/* <main className='main'> */}
+        <Routes>
+          {/* <Route path="*" element={<Navigate to={isLogged ? "/" : "/sign-in"} />} /> */}
+          <Route path="/" element={<Main />} />
+          <Route path="/movies" element={
+            <>
+              <ProtectedRoute
+                element={Movies}
+                isLogged={isLogged}
+              />
+            </>
+          } />
+          <Route path="/saved-movies" element={
+            <>
+              <ProtectedRoute
+                element={SavedMovies}
+                isLogged={isLogged}
+              />
+            </>
+          } />
+          <Route path="/profile" element={
+            <>
+              <ProtectedRoute
+                element={Profile}
+                isLogged={isLogged}
+                userSignOut={userSignOut}
+                onUpdateUser={handleUpdateUser}
+              />
+            </>
+          } />
+          <Route path="/signin" element={<Login onLogin={handleLoginUser} />} />
+          <Route path="/signup" element={<Register onRegister={handleRegisterUser} />} />
+          <Route path="/*" element={<PageNotFound />} />
+        </Routes>
+        {/* </main> */}
+      </div >
+    </CurrentUserContext.Provider>
   );
 }
 
