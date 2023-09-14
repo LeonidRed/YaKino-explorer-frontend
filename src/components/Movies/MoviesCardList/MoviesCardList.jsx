@@ -1,8 +1,8 @@
-import './MoviesCardList.css'
-import MoviesCard from '../MoviesCard/MoviesCard'
-
+import './MoviesCardList.css';
+import MoviesCard from '../MoviesCard/MoviesCard';
 
 export default function MoviesCardList() {
+
   return (
     <ul className="movies-card-list">
       <MoviesCard />
@@ -19,5 +19,5 @@ export default function MoviesCardList() {
       <MoviesCard />
       <MoviesCard />
     </ul>
-  );
-};
+  )
+}
