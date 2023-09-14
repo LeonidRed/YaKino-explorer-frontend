@@ -8,11 +8,11 @@
   box-shadow: 0 0 20px #F9F9F9;
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .profile-logo {
     display: none;
   }
-}
+} */
 
 .profile-logo:hover {
   cursor: pointer;

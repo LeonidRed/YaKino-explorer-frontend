@@ -9,10 +9,10 @@ export default function Footer() {
           <p className="footer__copyright">© 2023</p>
           <ul className="footer__items">
             <li className="footer__item">
-              <a href="https://practicum.yandex.ru/" className="footer__menu-item" target="_blank">Яндекс.Практикум</a>
+              <a href="https://practicum.yandex.ru/" className="footer__menu-item" target="_blank" rel="noreferrer">Яндекс.Практикум</a>
             </li>
             <li className="footer__item">
-              <a href="https://github.com/LeonidRed" className="footer__menu-item" target="_blank">GitHub</a>
+              <a href="https://github.com/LeonidRed" className="footer__menu-item" target="_blank" rel="noreferrer">GitHub</a>
             </li>
           </ul>
         </nav>

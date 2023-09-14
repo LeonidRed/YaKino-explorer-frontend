@@ -2,9 +2,10 @@ import ProfileLogo from '../ProfileLogo/ProfileLogo';
 import './BurgerMenu.css';
 import { Link } from 'react-router-dom';
 
-export default function BurgerMenu() {
+export default function BurgerMenu(props) {
   return (
-    <article className="burger-menu">
+    // <article className="burger-menu">
+    <article className={`burger-menu ${props.isOpen ? 'burger-menu_opened' : ''}`}>
       <div className="burger-menu__container">
 
         <div className="burger-menu__links">
@@ -21,7 +22,7 @@ export default function BurgerMenu() {
 
         <ProfileLogo />
 
-        <button className="burger-menu__close-btn" type="button"></button>
+        <button className="burger-menu__close-btn" type="button" onClick={props.onClose}></button>
       </div>
     </article>
   )

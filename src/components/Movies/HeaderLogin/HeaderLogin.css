@@ -1,5 +1,12 @@
 .header-login {
-  padding: 18px 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.header-login-is-logged {
+  background: #073042;
 }
 
 @media screen and (max-width: 768px) {
@@ -15,10 +22,19 @@
 }
 
 .header-login__container {
-  /* height: 74px; */
+  max-width: 1280px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 70px 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .header-login__container {
+    padding: 0;
+  }
 }
 
 .header-login__movies-list {
@@ -40,6 +56,10 @@
   color: #000000;
 }
 
+.header-login__movies-link-is-logged {
+  color: #FFFFFF;
+}
+
 .header-login__movies-link:hover {
   cursor: pointer;
   opacity: 0.3;
@@ -57,6 +77,11 @@
   position: relative;
   display: flex;
   box-shadow: 0 0 20px #F9F9F9;
+}
+
+.header-login__profile-is-logged {
+  box-shadow: none;
+  background-color: #2BE080;
 }
 
 @media screen and (max-width: 768px) {
@@ -102,6 +127,10 @@
     width: 44px;
     height: 44px;
     background: url('../../../images/header-burger-icon.svg');
+  }
+
+  .header-login__burger-is-logged {
+    background: url('../../../images/header-burger-icon-islogged.svg');
   }
 
   .header-login__burger:hover {

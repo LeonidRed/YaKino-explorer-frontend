@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -45,13 +45,9 @@ function App() {
           .then((user) => {
             if (user) {
               console.log(user);
-              // const userData = {
-              //   email: res.email
-              // }
               // авторизуем пользователя
               setIsLogged(true)
               setCurrentUser(user)
-              // setUserEmail(userData.email)
               navigate("/movies", { replace: true })
             }
           })
@@ -59,7 +55,6 @@ function App() {
       }
     } else {
       setIsLogged(false)
-      // setUserEmail('')
     }
   }, [isLogged])
 
@@ -119,7 +114,7 @@ function App() {
         {/* <main className='main'> */}
         <Routes>
           {/* <Route path="*" element={<Navigate to={isLogged ? "/" : "/sign-in"} />} /> */}
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main isLogged={isLogged} />} />
           <Route path="/movies" element={
             <>
               <ProtectedRoute
