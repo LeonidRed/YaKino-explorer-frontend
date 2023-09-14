@@ -7,7 +7,7 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import MoreMovies from './MoreMovies/MoreMovies';
 import Footer from '../Footer/Footer';
 
-export default function Movies() {
+export default function Movies(props) {
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -20,13 +20,13 @@ export default function Movies() {
     <div className="movies">
       <HeaderLogin />
       <main>
-        <SearchForm />
+        <SearchForm onMovieSearch={props.onMovieSearch} />
         {
           isLoading ? (
             <Preloader />
           ) :
             <>
-              <MoviesCardList />
+              <MoviesCardList films={props.films} />
               <MoreMovies />
             </>
         }

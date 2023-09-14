@@ -18,6 +18,7 @@ export default function Login(props) {
       [name]: value
     })
   }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!formValue.email || !formValue.password) {

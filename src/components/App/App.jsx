@@ -12,6 +12,8 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"
 // import Footer from '../Footer/Footer';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import * as auth from '../../utils/auth';
+import * as moviesApi from '../../utils/MoviesApi';
+
 import React from 'react';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext"
 
@@ -20,6 +22,8 @@ function App() {
   const navigate = useNavigate()
   const [isLogged, setIsLogged] = React.useState(false)
   const [currentUser, setCurrentUser] = React.useState({})
+  const [films, setFilms] = React.useState([])
+
 
   console.log('isLogged start ', isLogged);
 
@@ -107,6 +111,15 @@ function App() {
       .catch((err) => console.log(err))
   }
 
+  function handleMovieSearch(data) {
+    moviesApi.getMovies(data)
+      .then((films) => {
+        setFilms(films)
+      })
+      .catch((err) => console.log(err))
+  }
+
+  console.log(films);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -120,6 +133,8 @@ function App() {
               <ProtectedRoute
                 element={Movies}
                 isLogged={isLogged}
+                onMovieSearch={handleMovieSearch}
+                films={films}
               />
             </>
           } />
