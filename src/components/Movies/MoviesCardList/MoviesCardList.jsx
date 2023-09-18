@@ -8,12 +8,12 @@ export default function MoviesCardList(props) {
       {props.films.map(film => (
         <MoviesCard
           film={film}
-          key={film._id}
-        // onCardClick={onCardClick}
-        // onCardLike={onCardLike}
-        // onCardDelete={onCardDelete}
+          key={film.id}
+          savedFilms={props.savedFilms}
+          putLikeOnFilm={props.handlePutLikeFilm}
+          deleteLikedFilm={props.handleDeleteLikeFilm}
         />
-      )).reverse()
+      ))
       }
     </ul>
   )

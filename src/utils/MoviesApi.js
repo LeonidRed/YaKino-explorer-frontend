@@ -17,3 +17,4 @@ export const getMovies = (title) => {
   })
     .then(checkResponse)
 }
+

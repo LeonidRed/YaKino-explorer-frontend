@@ -5,15 +5,18 @@ import SavedMoviesCardList from './SavedMoviesCardList/SavedMoviesCardList'
 import Footer from '../Footer/Footer'
 
 
-
-export default function SavedMovies() {
+export default function SavedMovies(props) {
 
   return (
     <div className="movies">
       <HeaderLogin />
       <main>
         <SearchForm />
-        <SavedMoviesCardList />
+        <SavedMoviesCardList
+          savedFilms={props.savedFilms}
+          getSavedFilms={props.getSavedFilms}
+          handleDeleteLikeFilm={props.handleDeleteLikeFilm}
+        />
       </main>
       <Footer />
     </div>

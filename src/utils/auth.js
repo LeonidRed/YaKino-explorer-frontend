@@ -19,7 +19,6 @@ export const signup = (name, email, password) => {
     .then(checkResponse)
 }
 
-// export const signin = (email, password, token) => {
 export const signin = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
@@ -43,7 +42,7 @@ export const checkToken = (token) => {
     .then(checkResponse)
 }
 
-export const editProfile = (values, token) => {
+export const editProfile = (values) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "PATCH",
     headers: {

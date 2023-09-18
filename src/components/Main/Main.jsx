@@ -10,8 +10,6 @@ import HeaderLogin from '../Movies/HeaderLogin/HeaderLogin';
 
 export default function Main(props) {
 
-  console.log(props);
-
   return (
     <>
       {props.isLogged ? <HeaderLogin isLogged={props.isLogged} /> : <Header />}

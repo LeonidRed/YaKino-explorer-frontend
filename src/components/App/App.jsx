@@ -7,13 +7,10 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"
-// import Header from '../Header/Header';
-// import HeaderLogin from '../Movies/HeaderLogin/HeaderLogin';
-// import Footer from '../Footer/Footer';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import * as auth from '../../utils/auth';
 import * as moviesApi from '../../utils/MoviesApi';
-
+import * as mainApi from '../../utils/MainApi';
 import React from 'react';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext"
 
@@ -23,19 +20,17 @@ function App() {
   const [isLogged, setIsLogged] = React.useState(false)
   const [currentUser, setCurrentUser] = React.useState({})
   const [films, setFilms] = React.useState([])
+  const [savedFilms, setSavedFilms] = React.useState([]);
 
+  // console.log('isLogged start ', isLogged);
 
-  console.log('isLogged start ', isLogged);
+  React.useEffect(() => {
+    const token = localStorage.getItem("token");
 
-  // React.useEffect(() => {
-  //   isLogged &&
-  //   Promise.all([api.getUserInfo(), api.getInitialCards()])
-  //     .then(([user, cards]) => {
-  //       setCurrentUser(user)
-  //       setCards(cards)
-  //     })
-  //     .catch(err => console.log(err))
-  // }, [isLogged])
+    if (token) {
+      getSavedFilms()
+    }
+  }, [])
 
   // проверка токена
   React.useEffect(() => {
@@ -119,7 +114,49 @@ function App() {
       .catch((err) => console.log(err))
   }
 
-  console.log(films);
+  function getSavedFilms() {
+    const token = localStorage.getItem("token");
+
+    mainApi.getMovies({ token })
+      .then((films) => {
+        setSavedFilms(films);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  function handlePutLikeFilm(data) {
+    mainApi.createMovie(
+      {
+        ...data,
+        movieId: data.id,
+        token: localStorage.getItem('token'),
+        image: `https://api.nomoreparties.co${data.image.url}`,
+        thumbnail: `https://api.nomoreparties.co${data.image.url}`,
+      }
+    )
+      .then((film) => {
+        setSavedFilms([...savedFilms, film])
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+
+  function handleDeleteLikeFilm(id) {
+    mainApi.deleteMovie({
+      id: id,
+      token: localStorage.getItem('token'),
+    })
+      .then((deletedMovie) => {
+        setSavedFilms(savedFilms.filter((film) => film._id !== deletedMovie._id));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -135,6 +172,9 @@ function App() {
                 isLogged={isLogged}
                 onMovieSearch={handleMovieSearch}
                 films={films}
+                savedFilms={savedFilms}
+                handlePutLikeFilm={handlePutLikeFilm}
+                handleDeleteLikeFilm={handleDeleteLikeFilm}
               />
             </>
           } />
@@ -143,6 +183,9 @@ function App() {
               <ProtectedRoute
                 element={SavedMovies}
                 isLogged={isLogged}
+                savedFilms={savedFilms}
+                getSavedFilms={getSavedFilms}
+                handleDeleteLikeFilm={handleDeleteLikeFilm}
               />
             </>
           } />

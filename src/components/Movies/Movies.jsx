@@ -16,6 +16,7 @@ export default function Movies(props) {
     }, 1750);
   }, []);
 
+
   return (
     <div className="movies">
       <HeaderLogin />
@@ -26,7 +27,12 @@ export default function Movies(props) {
             <Preloader />
           ) :
             <>
-              <MoviesCardList films={props.films} />
+              <MoviesCardList
+                films={props.films}
+                savedFilms={props.savedFilms}
+                handlePutLikeFilm={props.handlePutLikeFilm}
+                handleDeleteLikeFilm={props.handleDeleteLikeFilm}
+              />
               <MoreMovies />
             </>
         }
