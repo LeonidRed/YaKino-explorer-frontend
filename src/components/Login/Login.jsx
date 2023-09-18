@@ -2,31 +2,37 @@ import './Login.css'
 import logo from '../../images/header-logo.svg'
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
+
 
 export default function Login(props) {
 
-  const [formValue, setFormValue] = React.useState({
-    email: '',
-    password: ''
-  })
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
+  console.log(errors);
 
-    setFormValue({
-      ...formValue,
-      [name]: value
-    })
-  }
+  // const [formValue, setFormValue] = React.useState({
+  //   email: '',
+  //   password: ''
+  // })
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target
+
+  //   setFormValue({
+  //     ...formValue,
+  //     [name]: value
+  //   })
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!formValue.email || !formValue.password) {
+    if (!values.email || !values.password) {
       return
     }
-    const { email, password } = formValue
+    const { email, password } = values
     props.onLogin(email, password)
-    setFormValue({ email: '', password: '' })
+    // setFormValue({ email: '', password: '' })
   }
 
   return (
@@ -45,11 +51,13 @@ export default function Login(props) {
             id="input-email"
             name="email"
             type="email"
-            value={formValue.email}
+            value={values.email}
             onChange={handleChange}
-            // defaultValue="pochta@yandex.ru"
+            pattern="\S+@\S+\.\S+"
             placeholder="Введите email"
             required />
+          <span className="login__input-error">{errors.email}</span>
+
 
           <label className="login__label">Пароль</label>
           <input
@@ -57,15 +65,17 @@ export default function Login(props) {
             id="input-pass"
             name="password"
             type="password"
-            value={formValue.password}
+            value={values.password}
             onChange={handleChange}
             placeholder="Введите пароль"
             minLength="8"
             required />
+          <span className="login__input-error">{errors.password}</span>
 
-          <button className={`login__button ${!formValue.email ? 'login__button-disabled' : ''}`}
+
+          <button className={`login__button ${!isValid ? 'login__button-disabled' : ''}`}
             type="submit"
-            disabled={!formValue.email}
+            disabled={!isValid}
           >Войти</button>
         </form>
         <p className="login__text">Ещё не зарегистрированы? <Link to="/signup" className="login__link" >Регистрация</Link> </p>

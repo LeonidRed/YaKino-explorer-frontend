@@ -2,32 +2,36 @@ import './Register.css';
 import logo from '../../images/header-logo.svg';
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 
 
 export default function Register(props) {
-  // console.log(props);
 
-  const [formValue, setFormValue] = React.useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+
+  console.log(errors);
+
+  // const [formValue, setFormValue] = React.useState({
+  //   name: '',
+  //   email: '',
+  //   password: '',
+  // });
 
   // console.log(formValue);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target
 
-    setFormValue({
-      ...formValue,
-      [name]: value
-    })
-  }
+  //   setFormValue({
+  //     ...formValue,
+  //     [name]: value
+  //   })
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     // здесь обработчик регистрации
-    const { name, email, password } = formValue;
+    const { name, email, password } = values;
     props.onRegister(name, email, password)
   }
 
@@ -47,14 +51,15 @@ export default function Register(props) {
             id="input-name"
             name="name"
             type="text"
-            // defaultValue="Виталий"
-            value={formValue.name}
+            value={values.name}
             onChange={handleChange}
             placeholder="Введите имя"
             minLength="2"
             maxLength="30"
+            pattern="^[A-Za-zА-Яа-яЁё]+$"
             required
           />
+          <span className="register__input-error">{errors.name}</span>
 
           <label className="register__label">E-mail</label>
           <input
@@ -62,12 +67,13 @@ export default function Register(props) {
             id="input-email"
             name="email"
             type="email"
-            // defaultValue="pochta@yandex.ru" 
-            value={formValue.email}
+            value={values.email}
             onChange={handleChange}
             placeholder='Введите почту'
+            pattern="\S+@\S+\.\S+"
             required
           />
+          <span className="register__input-error">{errors.email}</span>
 
           <label className="register__label">Пароль</label>
           <input
@@ -75,18 +81,17 @@ export default function Register(props) {
             id="input-pass"
             name="password"
             type="password"
-            // defaultValue="••••••••••••••" 
-            value={formValue.password}
+            value={values.password}
             onChange={handleChange}
             placeholder='Введите пароль'
             minLength="8"
             required
           />
-          <span className="register__input-error input-pass-error">Что-то пошло не так...</span>
+          <span className="register__input-error">{errors.password}</span>
           <button
-            className={`register__button ${!formValue.name ? 'register__button-disabled' : ''}`}
+            className={`register__button ${!isValid ? 'register__button-disabled' : ''}`}
             type="submit"
-            disabled={!formValue.name}
+            disabled={!isValid}
           >Зарегистрироваться</button>
         </form>
 
