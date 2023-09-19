@@ -1,0 +1,16 @@
+.infotooltip-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.infotooltip-container__text {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  font-size: 22px;
+  color: #000000;
+}

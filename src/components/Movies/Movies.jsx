@@ -2,10 +2,11 @@ import './Movies.css';
 import React from 'react';
 import HeaderLogin from './HeaderLogin/HeaderLogin';
 import SearchForm from './SearchForm/SearchForm';
-// import Preloader from './Preloader/Preloader';
+import Preloader from './Preloader/Preloader';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import MoreMovies from './MoreMovies/MoreMovies';
 import Footer from '../Footer/Footer';
+import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 export default function Movies(props) {
 
@@ -15,7 +16,6 @@ export default function Movies(props) {
 
   let searchValue = localStorage.getItem('search-form__input-btn')
   let searchDuration = JSON.parse(localStorage.getItem('search-form__toggle-btn'))
-  console.log(searchDuration);
 
   if (props.films.length !== 0) {
     const filteredFilms = props.films.filter(film => {
@@ -30,7 +30,6 @@ export default function Movies(props) {
   }
 
   const savedFilteredFilms = () => {
-
     return JSON.parse(localStorage.getItem('filteredFilms'))
   }
 
@@ -40,15 +39,18 @@ export default function Movies(props) {
       <HeaderLogin />
       <main>
         <SearchForm onMovieSearch={props.onMovieSearch} />
-        <>
-          <MoviesCardList
-            films={savedFilteredFilms() ?? props.films}
-            savedFilms={props.savedFilms}
-            handlePutLikeFilm={props.handlePutLikeFilm}
-            handleDeleteLikeFilm={props.handleDeleteLikeFilm}
-          />
-          <MoreMovies />
-        </>
+        {props.isLoading ? <Preloader /> :
+          savedFilteredFilms().length === 0 ? <InfoToolTip message={'Ничего не найдено'} /> :
+            <>
+              <MoviesCardList
+                films={savedFilteredFilms() ?? props.films}
+                savedFilms={props.savedFilms}
+                handlePutLikeFilm={props.handlePutLikeFilm}
+                handleDeleteLikeFilm={props.handleDeleteLikeFilm}
+              />
+              <MoreMovies />
+            </>
+        }
       </main>
       <Footer />
     </div>

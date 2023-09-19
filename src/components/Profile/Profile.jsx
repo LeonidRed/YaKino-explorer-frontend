@@ -14,8 +14,6 @@ export default function Profile(props) {
   const [infoMessage, setInfoMessage] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
 
-  console.log(infoMessage);
-
   React.useEffect(() => {
     setValues({
       name: currentUser.name,

@@ -1,8 +1,11 @@
 import './SearchForm.css';
 import React from 'react';
+import { useLocation } from "react-router-dom";
 
 
 export default function SearchForm(props) {
+  const { pathname } = useLocation();
+
   const [toggleBtn, setToggleBtn] = React.useState(true)
   const [formValue, setFormValue] = React.useState({
     title: localStorage.getItem('search-form__input-btn')
@@ -25,16 +28,39 @@ export default function SearchForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    const { title } = formValue;
-    if (title === null) {
-      let title = '';
-      localStorage.setItem('search-form__input-btn', title);
-      props.onMovieSearch(title);
+    if (pathname === '/movies') {
+      const { title } = formValue;
+      if (title === null) {
+        let title = '';
+        localStorage.setItem('search-form__input-btn', title);
+        props.onMovieSearch(title);
+      } else {
+        localStorage.setItem('search-form__input-btn', title);
+        props.onMovieSearch(title);
+      }
     } else {
-      localStorage.setItem('search-form__input-btn', title);
-      props.onMovieSearch(title);
+      // console.log(pathname);
+      const { title } = formValue;
+      // console.log(title);
+      // console.log(toggleBtn);
+
+      props.onSavedMovieSearch(title, toggleBtn);
     }
+
   }
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   const { title } = formValue;
+  //   if (title === null) {
+  //     let title = '';
+  //     localStorage.setItem('search-form__input-btn', title);
+  //     props.onMovieSearch(title);
+  //   } else {
+  //     localStorage.setItem('search-form__input-btn', title);
+  //     props.onMovieSearch(title);
+  //   }
+  // }
 
   return (
     <section className="search-form">

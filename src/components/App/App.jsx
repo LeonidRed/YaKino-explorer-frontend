@@ -13,7 +13,7 @@ import * as moviesApi from '../../utils/MoviesApi';
 import * as mainApi from '../../utils/MainApi';
 import React from 'react';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext"
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 
 function App() {
@@ -23,7 +23,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({})
   const [films, setFilms] = React.useState([])
   const [savedFilms, setSavedFilms] = React.useState([]);
-  const { pathname } = useLocation();
+  const [isLoading, setIsLoading] = React.useState(false)
+  // const { pathname } = useLocation();
 
 
   // console.log('isLogged start ', isLogged);
@@ -104,6 +105,7 @@ function App() {
     localStorage.removeItem('search-form__input-btn');
     localStorage.removeItem('search-form__toggle-btn');
     localStorage.removeItem('filteredFilms');
+    localStorage.removeItem('savedFilteredFilms');
     setFilms([]);
     setSavedFilms([]);
   }
@@ -123,9 +125,11 @@ function App() {
   }
 
   function handleMovieSearch(data) {
+    setIsLoading(true)
     moviesApi.getMovies(data)
       .then((films) => {
         setFilms(films)
+        setIsLoading(false)
       })
       .catch((err) => console.log(err))
   }
@@ -191,6 +195,7 @@ function App() {
                 savedFilms={savedFilms}
                 handlePutLikeFilm={handlePutLikeFilm}
                 handleDeleteLikeFilm={handleDeleteLikeFilm}
+                isLoading={isLoading}
               />
             </>
           } />
