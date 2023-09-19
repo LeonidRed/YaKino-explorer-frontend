@@ -13,6 +13,8 @@ import * as moviesApi from '../../utils/MoviesApi';
 import * as mainApi from '../../utils/MainApi';
 import React from 'react';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext"
+import { useLocation } from "react-router-dom";
+
 
 function App() {
 
@@ -21,6 +23,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({})
   const [films, setFilms] = React.useState([])
   const [savedFilms, setSavedFilms] = React.useState([]);
+  const { pathname } = useLocation();
+
 
   // console.log('isLogged start ', isLogged);
 
@@ -47,7 +51,6 @@ function App() {
               // авторизуем пользователя
               setIsLogged(true)
               setCurrentUser(user)
-              navigate("/movies", { replace: true })
             }
           })
           .catch(err => console.log(err))
@@ -55,7 +58,9 @@ function App() {
     } else {
       setIsLogged(false)
     }
-  }, [isLogged])
+  }, [])
+  // }, [isLogged])
+
 
   function handleRegisterUser(name, email, password) {
     auth.signup(name, email, password)
@@ -103,12 +108,18 @@ function App() {
     setSavedFilms([]);
   }
 
-  function handleUpdateUser(data) {
+  function handleUpdateUser(data, setInfoMessage, setErrorMessage) {
+    console.log(data);
     auth.editProfile(data)
       .then((res) => {
+        console.log(res);
         setCurrentUser(res)
+        setInfoMessage('Данные успешно обновлены!')
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        setErrorMessage('Что-то пошло не так, попробуйте позже');
+        console.log(err)
+      })
   }
 
   function handleMovieSearch(data) {
