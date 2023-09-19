@@ -9,7 +9,7 @@ export default function Login(props) {
 
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
-  console.log(errors);
+  // console.log(errors);
 
   // const [formValue, setFormValue] = React.useState({
   //   email: '',

@@ -94,8 +94,13 @@ function App() {
   }
 
   function userSignOut() {
-    setIsLogged(false)
-    localStorage.removeItem('token')
+    setIsLogged(false);
+    localStorage.removeItem('token');
+    localStorage.removeItem('search-form__input-btn');
+    localStorage.removeItem('search-form__toggle-btn');
+    localStorage.removeItem('filteredFilms');
+    setFilms([]);
+    setSavedFilms([]);
   }
 
   function handleUpdateUser(data) {

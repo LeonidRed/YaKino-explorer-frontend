@@ -143,7 +143,11 @@
   background-color: #FFFFFF;
 }
 
-.search-form__toggle-btn:checked {
+/* .search-form__toggle-btn:checked {
+  background-color: #2BE080;
+} */
+
+.search-form__toggle-btn-active {
   background-color: #2BE080;
 }
 
