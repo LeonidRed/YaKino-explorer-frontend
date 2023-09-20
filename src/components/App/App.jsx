@@ -24,6 +24,8 @@ function App() {
   const [films, setFilms] = React.useState([])
   const [savedFilms, setSavedFilms] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false)
+  const [isFirstSearch, setIsFirstSearch] = React.useState(false)
+
   // const { pathname } = useLocation();
 
 
@@ -125,13 +127,18 @@ function App() {
   }
 
   function handleMovieSearch(data) {
-    setIsLoading(true)
-    moviesApi.getMovies(data)
-      .then((films) => {
-        setFilms(films)
-        setIsLoading(false)
-      })
-      .catch((err) => console.log(err))
+    console.log(films.length !== 0);
+    if (films.length !== 0) {
+      setIsFirstSearch(!isFirstSearch)
+    } else {
+      setIsLoading(true)
+      moviesApi.getMovies(data)
+        .then((films) => {
+          setFilms(films)
+          setIsLoading(false)
+        })
+        .catch((err) => console.log(err))
+    }
   }
 
   function getSavedFilms() {
