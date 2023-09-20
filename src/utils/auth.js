@@ -1,5 +1,5 @@
-// export const BASE_URL = 'https://api.imesto.nomoredomains.xyz'
-const BASE_URL = 'http://localhost:3000'
+export const BASE_URL = 'http://yakino.nomoreparties.co'
+
 
 function checkResponse(res) {
   if (res.ok) {
