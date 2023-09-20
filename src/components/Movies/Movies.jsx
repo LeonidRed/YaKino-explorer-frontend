@@ -10,6 +10,12 @@ import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 export default function Movies(props) {
 
+  const savedFilteredFilms = () => {
+    return JSON.parse(localStorage.getItem('filteredFilms'))
+  }
+
+  // const [renderedFilms, setRenderedFilms] = React.useState(savedFilteredFilms() || props.films);
+
   React.useEffect(() => {
     savedFilteredFilms()
   }, []);
@@ -27,11 +33,10 @@ export default function Movies(props) {
       }
     })
     localStorage.setItem('filteredFilms', JSON.stringify(filteredFilms));
+    // setRenderedFilms(JSON.parse(localStorage.getItem('filteredFilms')))
   }
 
-  const savedFilteredFilms = () => {
-    return JSON.parse(localStorage.getItem('filteredFilms'))
-  }
+
 
 
   return (
@@ -44,11 +49,12 @@ export default function Movies(props) {
             <>
               <MoviesCardList
                 films={savedFilteredFilms() ?? props.films}
+                // films={renderedFilms}
                 savedFilms={props.savedFilms}
                 handlePutLikeFilm={props.handlePutLikeFilm}
                 handleDeleteLikeFilm={props.handleDeleteLikeFilm}
               />
-              <MoreMovies />
+              {/* <MoreMovies /> */}
             </>
         }
       </main>
