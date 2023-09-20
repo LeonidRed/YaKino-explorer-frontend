@@ -25,6 +25,8 @@ function App() {
   const [savedFilms, setSavedFilms] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false)
   const [isFirstSearch, setIsFirstSearch] = React.useState(false)
+  const [isFirstPageLoad, setIsFistPageLoad] = React.useState(true)
+
 
   // const { pathname } = useLocation();
 
@@ -37,7 +39,7 @@ function App() {
     if (token) {
       getSavedFilms()
     }
-  }, [])
+  }, [isFirstPageLoad])
 
   // проверка токена
   React.useEffect(() => {
@@ -75,6 +77,7 @@ function App() {
         localStorage.setItem('token', token.token)
         setIsLogged(true)
         navigate('/movies', { replace: true });
+        // setIsFistPageLoad(false)
       })
       .catch(err => {
         // setInfoTooltipPopupOpen(true)
@@ -110,13 +113,12 @@ function App() {
     localStorage.removeItem('savedFilteredFilms');
     setFilms([]);
     setSavedFilms([]);
+    setIsFistPageLoad(true)
   }
 
   function handleUpdateUser(data, setInfoMessage, setErrorMessage) {
-    console.log(data);
     auth.editProfile(data)
       .then((res) => {
-        console.log(res);
         setCurrentUser(res)
         setInfoMessage('Данные успешно обновлены!')
       })
@@ -127,9 +129,12 @@ function App() {
   }
 
   function handleMovieSearch(data) {
+
     console.log(films.length !== 0);
+
     if (films.length !== 0) {
       setIsFirstSearch(!isFirstSearch)
+      setIsFistPageLoad(false)
     } else {
       setIsLoading(true)
       moviesApi.getMovies(data)
@@ -203,6 +208,7 @@ function App() {
                 handlePutLikeFilm={handlePutLikeFilm}
                 handleDeleteLikeFilm={handleDeleteLikeFilm}
                 isLoading={isLoading}
+                isFirstPageLoad={isFirstPageLoad}
               />
             </>
           } />

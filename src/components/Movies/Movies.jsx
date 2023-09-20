@@ -4,13 +4,12 @@ import HeaderLogin from './HeaderLogin/HeaderLogin';
 import SearchForm from './SearchForm/SearchForm';
 import Preloader from './Preloader/Preloader';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
-import MoreMovies from './MoreMovies/MoreMovies';
 import Footer from '../Footer/Footer';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 export default function Movies(props) {
 
-  const savedFilteredFilms = () => {
+  function savedFilteredFilms() {
     return JSON.parse(localStorage.getItem('filteredFilms'))
   }
 
@@ -36,8 +35,7 @@ export default function Movies(props) {
     // setRenderedFilms(JSON.parse(localStorage.getItem('filteredFilms')))
   }
 
-
-
+  // console.log('isFirstPageLoad ---->', props.isFirstPageLoad);
 
   return (
     <div className="movies">
@@ -45,17 +43,16 @@ export default function Movies(props) {
       <main>
         <SearchForm onMovieSearch={props.onMovieSearch} />
         {props.isLoading ? <Preloader /> :
-          savedFilteredFilms().length === 0 ? <InfoToolTip message={'Ничего не найдено'} /> :
-            <>
-              <MoviesCardList
-                films={savedFilteredFilms() ?? props.films}
-                // films={renderedFilms}
-                savedFilms={props.savedFilms}
-                handlePutLikeFilm={props.handlePutLikeFilm}
-                handleDeleteLikeFilm={props.handleDeleteLikeFilm}
-              />
-              {/* <MoreMovies /> */}
-            </>
+          props.isFirstPageLoad ? <InfoToolTip /> :
+            savedFilteredFilms().length === 0 ? <InfoToolTip message={'Ничего не найдено'} /> :
+              <>
+                <MoviesCardList
+                  films={savedFilteredFilms() ?? props.films}
+                  savedFilms={props.savedFilms}
+                  handlePutLikeFilm={props.handlePutLikeFilm}
+                  handleDeleteLikeFilm={props.handleDeleteLikeFilm}
+                />
+              </>
         }
       </main>
       <Footer />
