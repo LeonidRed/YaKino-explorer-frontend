@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -16,6 +16,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext"
 
 function App() {
 
+  const { pathname } = useLocation();
   const navigate = useNavigate()
   const [isLogged, setIsLogged] = React.useState(false)
   const [currentUser, setCurrentUser] = React.useState({})
@@ -29,11 +30,12 @@ function App() {
 
   React.useEffect(() => {
     const token = localStorage.getItem("token");
-
     if (token) {
       getSavedFilms()
     }
-  }, [isFirstPageLoad])
+    // }, [isFirstPageLoad, isLogged])
+  }, [])
+
 
   // проверка токена
   React.useEffect(() => {
@@ -50,6 +52,11 @@ function App() {
               // авторизуем пользователя
               setIsLogged(true)
               setCurrentUser(user)
+              if (pathname === '/signup' || pathname === '/signin') {
+                navigate('/movies', { replace: true });
+              } else {
+                navigate(pathname, { replace: true });
+              }
             }
           })
           .catch(err => console.log(err))
@@ -218,7 +225,7 @@ function App() {
           } />
           <Route path="/signin" element={<Login onLogin={handleLoginUser} />} />
           <Route path="/signup" element={<Register onRegister={handleRegisterUser} />} />
-          <Route path="/*" element={<PageNotFound />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
         {/* </main> */}
       </div >
