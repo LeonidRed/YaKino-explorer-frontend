@@ -39,13 +39,13 @@ export default function SavedMovies(props) {
       <HeaderLogin />
       <main>
         <SearchForm onSavedMovieSearch={onSavedMovieSearch} />
-        {savedFilteredFilms.length === 0 ? <InfoToolTip message={'Ничего не найдено'} /> :
-          <SavedMoviesCardList
-            savedFilms={renderSavedFilteredFilms() ?? props.savedFilms}
-            getSavedFilms={props.getSavedFilms}
-            handleDeleteLikeFilm={props.handleDeleteLikeFilm}
-          />
-        }
+        {/* {savedFilteredFilms.length === 0 ? <InfoToolTip message={'Ничего не найдено'} /> : */}
+        <SavedMoviesCardList
+          savedFilms={renderSavedFilteredFilms() ?? props.savedFilms}
+          getSavedFilms={props.getSavedFilms}
+          handleDeleteLikeFilm={props.handleDeleteLikeFilm}
+        />
+        {/* } */}
       </main>
       <Footer />
     </div>
