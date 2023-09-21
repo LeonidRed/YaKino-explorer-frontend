@@ -31,7 +31,7 @@ export const signin = (email, password) => {
 }
 
 export const checkToken = (token) => {
-  console.log('token in auth ', token);
+  // console.log('token in auth ', token);
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {

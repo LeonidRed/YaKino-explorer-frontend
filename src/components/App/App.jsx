@@ -13,8 +13,6 @@ import * as moviesApi from '../../utils/MoviesApi';
 import * as mainApi from '../../utils/MainApi';
 import React from 'react';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext"
-// import { useLocation } from "react-router-dom";
-
 
 function App() {
 
@@ -26,10 +24,6 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(false)
   const [isFirstSearch, setIsFirstSearch] = React.useState(false)
   const [isFirstPageLoad, setIsFistPageLoad] = React.useState(true)
-
-
-  // const { pathname } = useLocation();
-
 
   // console.log('isLogged start ', isLogged);
 
@@ -52,7 +46,7 @@ function App() {
         auth.checkToken(jwt)
           .then((user) => {
             if (user) {
-              console.log(user);
+              // console.log(user);
               // авторизуем пользователя
               setIsLogged(true)
               setCurrentUser(user)
@@ -63,26 +57,17 @@ function App() {
     } else {
       setIsLogged(false)
     }
-  }, [])
-  // }, [isLogged])
+  }, [isLogged])
 
 
   function handleRegisterUser(name, email, password) {
     auth.signup(name, email, password)
       .then((token) => {
-        // console.log(token);
-        // setInfoTooltipPopupOpen(true)
-        // setTooltipImage(goodAuth)
-        // setTooltipText('Вы успешно зарегистрировались!')
         localStorage.setItem('token', token.token)
         setIsLogged(true)
         navigate('/movies', { replace: true });
-        // setIsFistPageLoad(false)
       })
       .catch(err => {
-        // setInfoTooltipPopupOpen(true)
-        // setTooltipImage(badAuth)
-        // setTooltipText('Что-то пошло не так! Попробуйте ещё раз.')
         console.log(err)
       })
   }
@@ -97,9 +82,22 @@ function App() {
         }
       })
       .catch(err => {
-        // setInfoTooltipPopupOpen(true)
-        // setTooltipImage(badAuth)
-        // setTooltipText('Что-то пошло не так! Попробуйте ещё раз.')
+        console.log(err)
+      })
+  }
+
+  function handleUpdateUser(data, setInfoMessage, setErrorMessage) {
+    auth.editProfile(data)
+      .then((res) => {
+        setCurrentUser(res)
+        setInfoMessage('Данные успешно обновлены!')
+      })
+      .catch((err) => {
+        if (err === "Ошибка: 409") {
+          setErrorMessage("Пользователь с таким email уже существует");
+        } else {
+          setErrorMessage("При обновлении профиля произошла ошибка");
+        }
         console.log(err)
       })
   }
@@ -113,25 +111,10 @@ function App() {
     localStorage.removeItem('savedFilteredFilms');
     setFilms([]);
     setSavedFilms([]);
-    setIsFistPageLoad(true)
-  }
-
-  function handleUpdateUser(data, setInfoMessage, setErrorMessage) {
-    auth.editProfile(data)
-      .then((res) => {
-        setCurrentUser(res)
-        setInfoMessage('Данные успешно обновлены!')
-      })
-      .catch((err) => {
-        setErrorMessage('Что-то пошло не так, попробуйте позже');
-        console.log(err)
-      })
+    setIsFistPageLoad(true);
   }
 
   function handleMovieSearch(data) {
-
-    console.log(films.length !== 0);
-
     if (films.length !== 0) {
       setIsFirstSearch(!isFirstSearch)
       setIsFistPageLoad(false)

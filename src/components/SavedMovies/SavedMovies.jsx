@@ -31,8 +31,8 @@ export default function SavedMovies(props) {
     return JSON.parse(localStorage.getItem('savedFilteredFilms'))
   }
 
-  console.log("savedFilteredFilms", savedFilteredFilms);
-  console.log(savedFilteredFilms.lenght === 0);
+  // console.log("savedFilteredFilms", savedFilteredFilms);
+  // console.log(savedFilteredFilms.lenght === 0);
 
   return (
     <div className="movies">

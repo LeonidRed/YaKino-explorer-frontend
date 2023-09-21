@@ -14,12 +14,14 @@ export default function Profile(props) {
   const [infoMessage, setInfoMessage] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
 
+  // console.log(currentUser);
+
   React.useEffect(() => {
     setValues({
       name: currentUser.name,
       email: currentUser.email
     })
-  }, []);
+  }, [currentUser]);
 
   // const [name, setName] = React.useState()
   // const [email, setEmail] = React.useState()
@@ -55,7 +57,7 @@ export default function Profile(props) {
     props.onUpdateUser(data, setInfoMessage, setErrorMessage)
   }
 
-  const onEditBtnClick = () => {
+  const onInputFocus = () => {
     setInfoMessage('');
     setErrorMessage('');
   }
@@ -81,7 +83,7 @@ export default function Profile(props) {
                   type="text"
                   value={values.name || currentUser.name}
                   onChange={handleChange}
-                  onFocus={onEditBtnClick}
+                  onFocus={onInputFocus}
                   placeholder="Введите имя"
                   minLength="2"
                   maxLength="30"
@@ -100,7 +102,7 @@ export default function Profile(props) {
                   type="email"
                   value={values.email || currentUser.email}
                   onChange={handleChange}
-                  onFocus={onEditBtnClick}
+                  onFocus={onInputFocus}
                   placeholder='Введите почту'
                   pattern="\S+@\S+\.\S+"
                   required
