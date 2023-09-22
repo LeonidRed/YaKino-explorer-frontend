@@ -15,7 +15,8 @@ export default function MoviesCard(props) {
         return item.movieId === props.film.id;
       })
     )
-  }, [props.savedFilms])
+  }, [props.savedFilms, isLiked])
+  // }, [])
 
   function getMovieDuration(mins) {
     if (mins > 0) {
@@ -47,9 +48,9 @@ export default function MoviesCard(props) {
       <div className='movies-card__description'>
         <div className='movies-card__caption'>
           <h2 className='movies-card__title'>{props.film.nameRU}</h2>
-          <button
+          <div
             className={`movies-card__like-btn ${isLiked ? "movies-card__like-btn-active" : ''}`}
-            type="button"
+            type="submit"
             onClick={toggleLikeFilm} />
         </div>
         <p className='movies-card__duration'>{getMovieDuration(props.film.duration)}</p>

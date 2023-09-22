@@ -26,11 +26,12 @@ function App() {
   const [isFirstSearch, setIsFirstSearch] = React.useState(false)
   const [isFirstPageLoad, setIsFistPageLoad] = React.useState(true)
 
-  // console.log('isLogged start ', isLogged);
+  console.log('isLogged start ', isLogged);
 
   React.useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
+      console.log('useEffect');
       getSavedFilms()
     }
     // }, [isFirstPageLoad, isLogged])
@@ -159,6 +160,8 @@ function App() {
       }
     )
       .then((film) => {
+        console.log('hi');
+
         setSavedFilms([...savedFilms, film])
       })
       .catch((err) => {

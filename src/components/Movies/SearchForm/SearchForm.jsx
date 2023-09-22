@@ -6,10 +6,19 @@ import { useLocation } from "react-router-dom";
 export default function SearchForm(props) {
   const { pathname } = useLocation();
 
-  const [toggleBtn, setToggleBtn] = React.useState(true)
+  // console.log(props);
+
+  // const [toggleBtn, setToggleBtn] = React.useState(true)
+  const [toggleBtn, setToggleBtn] = React.useState(
+    JSON.parse(localStorage.getItem('search-form__toggle-btn')) ?? true)
+
   const [formValue, setFormValue] = React.useState({
     title: localStorage.getItem('search-form__input-btn')
   } ?? '')
+
+  //   React.useEffect(() => {
+  //     handleSearch(values.searchValue);
+  // }, [isCheckboxEnable]);
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -22,6 +31,8 @@ export default function SearchForm(props) {
 
   const handleClick = () => {
     setToggleBtn(!toggleBtn)
+    // setToggleBtn(!false)
+
     localStorage.setItem('search-form__toggle-btn', toggleBtn);
   }
 
@@ -46,8 +57,9 @@ export default function SearchForm(props) {
 
       props.onSavedMovieSearch(title, toggleBtn);
     }
-
   }
+
+  // console.log(!toggleBtn);
 
   // const handleSubmit = (e) => {
   //   e.preventDefault()
@@ -88,8 +100,12 @@ export default function SearchForm(props) {
               type="checkbox"
               name="toggle"
               id="toggle-btn"
-              className={`search-form__toggle-btn ${!toggleBtn ? 'search-form__toggle-btn-active' : ''}`}
-              onClick={handleClick}
+              // className={`search-form__toggle-btn ${!toggleBtn ? 'search-form__toggle-btn-active' : ''}`}
+              className="search-form__toggle-btn"
+              checked={!toggleBtn || ''}
+              // onClick={handleClick}
+              onChange={handleClick}
+
             />
             <label htmlFor="toggle-btn" className="search-form__toggle-text">Короткометражки</label>
           </div>

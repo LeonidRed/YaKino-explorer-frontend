@@ -24,7 +24,7 @@ export default function MoviesCardList(props) {
       setRenderedFilms(films.slice(0, 5));
       setCurrentWidth(window.innerWidth)
     }
-  }, [props.films, currentWidth, films]);
+  }, [currentWidth, films]); // props.films не указывать, иначе перерисовка
 
   React.useEffect(() => {
     if (renderedFilms.length < films.length) {
