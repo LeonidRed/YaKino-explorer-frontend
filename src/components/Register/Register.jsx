@@ -9,25 +9,6 @@ export default function Register(props) {
 
   const { values, handleChange, errors, isValid } = useFormWithValidation();
 
-  // console.log(errors);
-
-  // const [formValue, setFormValue] = React.useState({
-  //   name: '',
-  //   email: '',
-  //   password: '',
-  // });
-
-  // console.log(formValue);
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target
-
-  //   setFormValue({
-  //     ...formValue,
-  //     [name]: value
-  //   })
-  // }
-
   const handleSubmit = (e) => {
     e.preventDefault()
     // здесь обработчик регистрации
@@ -37,7 +18,6 @@ export default function Register(props) {
 
   return (
     <main className="register">
-      {/* <section className="register"> */}
       <div className="register__container">
         <Link to="/" className="register__main-link">
           <img className="register__logo" src={logo} alt="Логотип сайта" />
@@ -98,7 +78,6 @@ export default function Register(props) {
         <p className="register__text">Уже зарегистрированы?
           <Link to="/signin" className="register__link">Войти</Link> </p>
       </div>
-      {/*  </section> */}
     </main >
   );
 };

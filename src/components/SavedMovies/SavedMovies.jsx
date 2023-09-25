@@ -8,44 +8,85 @@ import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 
 export default function SavedMovies(props) {
+  const [movies, setMovies] = React.useState(props.savedFilms);
+  const [searchValue, setSearchValue] = React.useState("");
+  const [isCheckboxEnable, setCheckBoxEnable] = React.useState(false);
+  const [isSearchError, setIsSearchError] = React.useState("");
 
-  const [savedTglBtn, setSavedTglBtn] = React.useState('');
-  const [savedTitle, setSavedTitle] = React.useState('');
-
-  function onSavedMovieSearch(title, toggleBtn) {
-    setSavedTitle(title);
-    setSavedTglBtn(!toggleBtn)
+  function filteredByName(movies, searchValue) {
+    return movies.filter(film => {
+      return film.nameRU.toLowerCase().includes(searchValue.toLowerCase())
+    })
   }
 
-  const savedFilteredFilms = props.savedFilms.filter(film => {
-    if (!savedTglBtn) {
-      return film.nameRU.toLowerCase().includes(savedTitle.toLowerCase())
+  function filteredByDuration(movies) {
+    return movies.filter((item) => {
+      return item.duration <= 40;
+    })
+  }
+
+  const updateMovies = React.useCallback((value) => {
+    const filteredMovies = filteredByName(props.savedFilms, value);
+    localStorage.setItem("foundSavedMovies", JSON.stringify(filteredMovies));
+
+    if (filteredMovies.length !== 0) {
+      setIsSearchError("");
+      setMovies(filteredMovies);
     } else {
-      return film.nameRU.toLowerCase().includes(savedTitle.toLowerCase())
-        && film.duration <= 41
+      setIsSearchError("Вы ещё не сохранили фильмы с таким названием");
+      setMovies([]);
     }
-  })
-  localStorage.setItem('savedFilteredFilms', JSON.stringify(savedFilteredFilms));
 
-  const renderSavedFilteredFilms = () => {
-    return JSON.parse(localStorage.getItem('savedFilteredFilms'))
+    if (isCheckboxEnable) {
+      const filteredShortMovies = filteredByDuration(filteredMovies);
+      localStorage.setItem("foundSavedShortMovies", JSON.stringify(filteredShortMovies));
+    }
+
+    isCheckboxEnable ? setMovies(JSON.parse(localStorage.getItem("foundSavedShortMovies"))) : setMovies(JSON.parse(localStorage.getItem("foundSavedMovies")));
+  }, [isCheckboxEnable, props.savedFilms])
+
+  React.useEffect(() => {
+
+    if (searchValue) {
+      updateMovies(searchValue);
+    } else {
+      setMovies(props.savedFilms);
+    }
+
+  }, [props.savedFilms, searchValue, updateMovies])
+
+  function handleSearch(value) {
+
+    if (value) {
+      setSearchValue(value);
+      localStorage.setItem("savedMovieValue", value);
+      updateMovies(value);
+    } else {
+      isCheckboxEnable ? setMovies(filteredByDuration(props.savedFilms)) : setMovies(props.savedFilms);
+    }
   }
 
-  // console.log("savedFilteredFilms", savedFilteredFilms);
-  // console.log(savedFilteredFilms.lenght === 0);
+  function toggleCheckbox() {
+    setCheckBoxEnable(!isCheckboxEnable);
+  }
+
 
   return (
     <div className="movies">
       <HeaderLogin />
       <main>
-        <SearchForm onSavedMovieSearch={onSavedMovieSearch} />
-        {/* {savedFilteredFilms.length === 0 ? <InfoToolTip message={'Ничего не найдено'} /> : */}
-        <SavedMoviesCardList
-          savedFilms={renderSavedFilteredFilms() ?? props.savedFilms}
-          getSavedFilms={props.getSavedFilms}
-          handleDeleteLikeFilm={props.handleDeleteLikeFilm}
+        <SearchForm
+          handleSearch={handleSearch}
+          isCheckboxEnable={isCheckboxEnable}
+          toggleCheckbox={toggleCheckbox}
         />
-        {/* } */}
+        {isSearchError ? <InfoToolTip message={isSearchError} /> :
+          <SavedMoviesCardList
+            savedFilms={movies}
+            getSavedFilms={props.getSavedFilms}
+            handleDeleteLikeFilm={props.handleDeleteLikeFilm}
+          />
+        }
       </main>
       <Footer />
     </div>

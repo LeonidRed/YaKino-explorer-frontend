@@ -13,8 +13,9 @@ export default function Profile(props) {
   const { values, handleChange, errors, isValid, setValues } = useFormWithValidation();
   const [infoMessage, setInfoMessage] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
-
-  // console.log(currentUser);
+  const isNameEdited = currentUser.name !== values.name;
+  const isEmailEdited = currentUser.email !== values.email
+  const isValueEdited = isNameEdited || isEmailEdited;
 
   React.useEffect(() => {
     setValues({
@@ -22,22 +23,6 @@ export default function Profile(props) {
       email: currentUser.email
     })
   }, [currentUser]);
-
-  // const [name, setName] = React.useState()
-  // const [email, setEmail] = React.useState()
-
-  // function handleNameChange(e) {
-  //   setName(e.target.value)
-  // }
-
-  // function handleEmailChange(e) {
-  //   setEmail(e.target.value)
-  // }
-
-  const isNameEdited = currentUser.name !== values.name;
-  const isEmailEdited = currentUser.email !== values.email
-  const isValueEdited = isNameEdited || isEmailEdited;
-
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -66,7 +51,6 @@ export default function Profile(props) {
     <>
       <HeaderLogin />
       <main className="profile">
-        {/* <section className="profile"> */}
 
         <div className="profile__container">
 

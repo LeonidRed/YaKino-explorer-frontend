@@ -5,10 +5,6 @@ export default function MoviesCard(props) {
 
   const [isLiked, setIsLiked] = React.useState(false);
 
-  const likedFilm = () => {
-    return props.savedFilms.find(film => film.movieId === props.film.id);
-  }
-
   React.useEffect(() => {
     setIsLiked(
       props.savedFilms.some((item) => {
@@ -17,6 +13,10 @@ export default function MoviesCard(props) {
     )
   }, [props.savedFilms, isLiked])
   // }, [])
+
+  function likedFilm() {
+    return props.savedFilms.find(film => film.movieId === props.film.id);
+  }
 
   function getMovieDuration(mins) {
     if (mins > 0) {
@@ -48,9 +48,9 @@ export default function MoviesCard(props) {
       <div className='movies-card__description'>
         <div className='movies-card__caption'>
           <h2 className='movies-card__title'>{props.film.nameRU}</h2>
-          <div
+          <button
             className={`movies-card__like-btn ${isLiked ? "movies-card__like-btn-active" : ''}`}
-            type="submit"
+            type="button"
             onClick={toggleLikeFilm} />
         </div>
         <p className='movies-card__duration'>{getMovieDuration(props.film.duration)}</p>

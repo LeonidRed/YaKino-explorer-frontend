@@ -9,22 +9,6 @@ export default function Login(props) {
 
   const { values, handleChange, errors, isValid } = useFormWithValidation();
 
-  // console.log(errors);
-
-  // const [formValue, setFormValue] = React.useState({
-  //   email: '',
-  //   password: ''
-  // })
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target
-
-  //   setFormValue({
-  //     ...formValue,
-  //     [name]: value
-  //   })
-  // }
-
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!values.email || !values.password) {
@@ -32,11 +16,9 @@ export default function Login(props) {
     }
     const { email, password } = values
     props.onLogin(email, password)
-    // setFormValue({ email: '', password: '' })
   }
 
   return (
-    // <section className="login">
     <main className="login">
 
       <div className="login__container">
@@ -81,7 +63,6 @@ export default function Login(props) {
         <p className="login__text">Ещё не зарегистрированы? <Link to="/signup" className="login__link" >Регистрация</Link> </p>
 
       </div >
-      {/* </section > */}
     </main>
   );
 };

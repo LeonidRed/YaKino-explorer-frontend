@@ -9,7 +9,6 @@ import Register from '../Register/Register';
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"
 import PageNotFound from '../PageNotFound/PageNotFound';
 import * as auth from '../../utils/auth';
-import * as moviesApi from '../../utils/MoviesApi';
 import * as mainApi from '../../utils/MainApi';
 import React from 'react';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext"
@@ -20,37 +19,26 @@ function App() {
   const navigate = useNavigate()
   const [isLogged, setIsLogged] = React.useState(false)
   const [currentUser, setCurrentUser] = React.useState({})
-  const [films, setFilms] = React.useState([])
   const [savedFilms, setSavedFilms] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [isFirstSearch, setIsFirstSearch] = React.useState(false)
   const [isFirstPageLoad, setIsFistPageLoad] = React.useState(true)
-
-  console.log('isLogged start ', isLogged);
 
   React.useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      console.log('useEffect');
       getSavedFilms()
     }
-    // }, [isFirstPageLoad, isLogged])
-  }, [])
+  }, [isFirstPageLoad, isLogged])
+  // }, [])
 
 
   // проверка токена
   React.useEffect(() => {
-    // если у пользователя есть токен в localStorage, 
-    // эта функция проверит, действующий он или нет
     if (localStorage.getItem('token')) {
       const jwt = localStorage.getItem('token')
       if (jwt) {
-        // проверим токен
         auth.checkToken(jwt)
           .then((user) => {
             if (user) {
-              // console.log(user);
-              // авторизуем пользователя
               setIsLogged(true)
               setCurrentUser(user)
               if (pathname === '/signup' || pathname === '/signin') {
@@ -113,28 +101,16 @@ function App() {
   function userSignOut() {
     setIsLogged(false);
     localStorage.removeItem('token');
-    localStorage.removeItem('search-form__input-btn');
-    localStorage.removeItem('search-form__toggle-btn');
     localStorage.removeItem('filteredFilms');
     localStorage.removeItem('savedFilteredFilms');
-    setFilms([]);
-    setSavedFilms([]);
-    setIsFistPageLoad(true);
-  }
-
-  function handleMovieSearch(data) {
-    if (films.length !== 0) {
-      setIsFirstSearch(!isFirstSearch)
-      setIsFistPageLoad(false)
-    } else {
-      setIsLoading(true)
-      moviesApi.getMovies(data)
-        .then((films) => {
-          setFilms(films)
-          setIsLoading(false)
-        })
-        .catch((err) => console.log(err))
-    }
+    localStorage.removeItem('inputSearchValue');
+    localStorage.removeItem('isCheckboxEnable');
+    localStorage.removeItem('allMovies');
+    localStorage.removeItem('foundMovies');
+    localStorage.removeItem('savedMovieValue');
+    localStorage.removeItem('foundSavedMovies');
+    localStorage.removeItem('foundSavedShortMovies');
+    localStorage.removeItem('foundShortMovies');
   }
 
   function getSavedFilms() {
@@ -160,8 +136,6 @@ function App() {
       }
     )
       .then((film) => {
-        console.log('hi');
-
         setSavedFilms([...savedFilms, film])
       })
       .catch((err) => {
@@ -186,21 +160,16 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        {/* <main className='main'> */}
         <Routes>
-          {/* <Route path="*" element={<Navigate to={isLogged ? "/" : "/sign-in"} />} /> */}
           <Route path="/" element={<Main isLogged={isLogged} />} />
           <Route path="/movies" element={
             <>
               <ProtectedRoute
                 element={Movies}
                 isLogged={isLogged}
-                onMovieSearch={handleMovieSearch}
-                films={films}
                 savedFilms={savedFilms}
                 handlePutLikeFilm={handlePutLikeFilm}
                 handleDeleteLikeFilm={handleDeleteLikeFilm}
-                isLoading={isLoading}
                 isFirstPageLoad={isFirstPageLoad}
               />
             </>
@@ -230,7 +199,6 @@ function App() {
           <Route path="/signup" element={<Register onRegister={handleRegisterUser} />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-        {/* </main> */}
       </div >
     </CurrentUserContext.Provider>
   );

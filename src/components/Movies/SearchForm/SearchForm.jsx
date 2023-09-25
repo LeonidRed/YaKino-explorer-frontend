@@ -1,98 +1,46 @@
 import './SearchForm.css';
 import React from 'react';
-import { useLocation } from "react-router-dom";
-
 
 export default function SearchForm(props) {
-  const { pathname } = useLocation();
+  const [values, setValues] = React.useState('');
 
-  // console.log(props);
+  // установим значение для поиска после перезагрузки
+  React.useEffect(() => {
+    setValues({ searchValue: props.searchValue });
+  }, [props.searchValue, setValues]);
 
-  // const [toggleBtn, setToggleBtn] = React.useState(true)
-  const [toggleBtn, setToggleBtn] = React.useState(
-    JSON.parse(localStorage.getItem('search-form__toggle-btn')) ?? true)
+  React.useEffect(() => {
+    props.handleSearch(values.searchValue);
+  }, [props.isCheckboxEnable]);
 
-  const [formValue, setFormValue] = React.useState({
-    title: localStorage.getItem('search-form__input-btn')
-  } ?? '')
+  function handleChange(event) {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    setValues({ ...values, [name]: value });
+  };
 
-  //   React.useEffect(() => {
-  //     handleSearch(values.searchValue);
-  // }, [isCheckboxEnable]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-
-    setFormValue({
-      ...formValue,
-      [name]: value
-    })
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    props.handleSearch(values.searchValue);
   }
-
-  const handleClick = () => {
-    setToggleBtn(!toggleBtn)
-    // setToggleBtn(!false)
-
-    localStorage.setItem('search-form__toggle-btn', toggleBtn);
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    if (pathname === '/movies') {
-      const { title } = formValue;
-      if (title === null) {
-        let title = '';
-        localStorage.setItem('search-form__input-btn', title);
-        props.onMovieSearch(title);
-      } else {
-        localStorage.setItem('search-form__input-btn', title);
-        props.onMovieSearch(title);
-      }
-    } else {
-      // console.log(pathname);
-      const { title } = formValue;
-      // console.log(title);
-      // console.log(toggleBtn);
-
-      props.onSavedMovieSearch(title, toggleBtn);
-    }
-  }
-
-  // console.log(!toggleBtn);
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   const { title } = formValue;
-  //   if (title === null) {
-  //     let title = '';
-  //     localStorage.setItem('search-form__input-btn', title);
-  //     props.onMovieSearch(title);
-  //   } else {
-  //     localStorage.setItem('search-form__input-btn', title);
-  //     props.onMovieSearch(title);
-  //   }
-  // }
 
   return (
     <section className="search-form">
-      <form className="search-form__container" onSubmit={handleSubmit}>
+      <form className="search-form__container" onSubmit={handleFormSubmit}>
+
         <div className="search-form__row">
           <div className="search-form__input-container">
             <input
               className="search-form__input"
-              name="title"
+              name="searchValue"
               type="text"
-              // value={localStorage.getItem("title") || formValue.title}
-              value={formValue.title || ""}
+              value={values.searchValue || ""}
               onChange={handleChange}
               placeholder="Фильм"
-            // required
             />
-            {/* <button className={`search-form__input-btn ${!formValue.title ? "search-form__input-btn-disabled" : ""}`} */}
             <button className={"search-form__input-btn"}
               type="submit"
-            // disabled={!formValue.title}
             >Найти</button>
           </div>
           <div className="search-form__toggle-container">
@@ -100,12 +48,9 @@ export default function SearchForm(props) {
               type="checkbox"
               name="toggle"
               id="toggle-btn"
-              // className={`search-form__toggle-btn ${!toggleBtn ? 'search-form__toggle-btn-active' : ''}`}
               className="search-form__toggle-btn"
-              checked={!toggleBtn || ''}
-              // onClick={handleClick}
-              onChange={handleClick}
-
+              checked={props.isCheckboxEnable}
+              onChange={props.toggleCheckbox}
             />
             <label htmlFor="toggle-btn" className="search-form__toggle-text">Короткометражки</label>
           </div>
