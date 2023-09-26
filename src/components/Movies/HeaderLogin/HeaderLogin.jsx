@@ -36,16 +36,46 @@ export default function HeaderLogin(props) {
         </Link>
 
         <div className="header-login__movies-list">
-          <Link to="/movies"
-            className={`header-login__movies-link header-login__movies-link-medium ${isMainPage ? 'header-login__movies-link-is-logged' : ''}`}
-          >
-            Фильмы
-          </Link>
-          <Link to="/saved-movies"
-            className={`header-login__movies-link ${isMainPage ? 'header-login__movies-link-is-logged' : ''}`}
-          >
-            Сохраненные фильмы
-          </Link>
+          {(() => {
+            if (pathname === '/movies') {
+              return (
+                <Link to="/movies"
+                  className={`header-login__movies-link header-login__movies-link-medium ${isMainPage ? 'header-login__movies-link-is-logged' : ''}`}
+                >
+                  Фильмы
+                </Link>
+              )
+            } else {
+              return (
+                <Link to="/movies"
+                  className={`header-login__movies-link header-login__movies-link ${isMainPage ? 'header-login__movies-link-is-logged' : ''}`}
+                >
+                  Фильмы
+                </Link>
+              )
+            }
+          })()}
+
+          {(() => {
+            if (pathname === '/saved-movies') {
+              return (
+                <Link to="/movies"
+                  className={`header-login__movies-link header-login__movies-link-medium ${isMainPage ? 'header-login__movies-link-is-logged' : ''}`}
+                >
+                  Сохраненные фильмы
+                </Link>
+              )
+            } else {
+              return (
+                <Link to="/saved-movies"
+                  className={`header-login__movies-link header-login__movies-link ${isMainPage ? 'header-login__movies-link-is-logged' : ''}`}
+                >
+                  Сохраненные фильмы
+                </Link>
+              )
+            }
+          })()}
+
         </div>
 
         <Link to="/profile"
