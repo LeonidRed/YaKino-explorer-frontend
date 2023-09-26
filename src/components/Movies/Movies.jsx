@@ -6,19 +6,15 @@ import Preloader from './Preloader/Preloader';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
-import { useLocation } from 'react-router-dom';
 import * as moviesApi from '../../utils/MoviesApi';
 
 export default function Movies(props) {
-  const { pathname } = useLocation();
   const [movies, setMovies] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState("");
   const [isCheckboxEnable, setCheckBoxEnable] = React.useState(false);
   const [isSearchError, setIsSearchError] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [isFirstSearch, setIsFirstSearch] = React.useState(false);
-
-  // console.log(props);
 
   React.useEffect(() => {
     if (localStorage.getItem("inputSearchValue")) {
@@ -69,82 +65,13 @@ export default function Movies(props) {
           setIsSearchError("Нет фильмов по Вашему запросу");
           localStorage.setItem("foundShortMovies", JSON.stringify(filteredShortMovies));
         }
-        // localStorage.setItem("foundShortMovies", JSON.stringify(filteredShortMovies));
+
       } else {
         localStorage.setItem("isCheckboxEnable", "disable");
         setMovies(JSON.parse(localStorage.getItem("foundMovies")))
 
       }
-
-      // if (isCheckboxEnable) {
-      //   setMovies(JSON.parse(localStorage.getItem("foundShortMovies")))
-      // } else {
-      //   setMovies(JSON.parse(localStorage.getItem("foundMovies")))
-      // }
-
-
-      // isCheckboxEnable ? setMovies(JSON.parse(localStorage.getItem("foundShortMovies"))) : setMovies(JSON.parse(localStorage.getItem("foundMovies")));
     }
-
-    // else if (value === '') {
-
-    //   setSearchValue(localStorage.getItem("inputSearchValue"));
-    //   console.log('here searchValue =', value);
-
-
-    //   localStorage.setItem("inputSearchValue", '')
-
-    //   console.log('here searchValue =');
-
-
-    //   const filteredMovies = filteredByName(allMovies, '');
-    //   localStorage.setItem("foundMovies", JSON.stringify(filteredMovies));
-
-    //   if (filteredMovies.length !== 0) {
-    //     setIsSearchError("");
-    //     setMovies(filteredMovies);
-    //   } else {
-    //     setIsSearchError("Ничего не удалось найти");
-    //     setMovies([]);
-    //   }
-    //   // если чекбокс включен 
-    //   if (isCheckboxEnable) {
-    //     localStorage.setItem("isCheckboxEnable", "enable");
-    //     const filteredShortMovies = filteredByDuration(filteredMovies, value);
-    //     localStorage.setItem("foundShortMovies", JSON.stringify(filteredShortMovies));
-    //   } else {
-    //     localStorage.setItem("isCheckboxEnable", "disable");
-    //   }
-
-    //   isCheckboxEnable ? setMovies(JSON.parse(localStorage.getItem("foundShortMovies"))) : setMovies(JSON.parse(localStorage.getItem("foundMovies")));
-    // }
-
-    // else {
-    //   setSearchValue(localStorage.getItem("inputSearchValue"));
-    //   localStorage.setItem("inputSearchValue", searchValue)
-
-    //   const filteredMovies = filteredByName(allMovies, '');
-    //   localStorage.setItem("foundMovies", JSON.stringify(filteredMovies));
-
-    //   if (filteredMovies.length !== 0) {
-    //     setIsSearchError("");
-    //     setMovies(filteredMovies);
-    //   } else {
-    //     setIsSearchError("Ничего не удалось найти");
-    //     setMovies([]);
-    //   }
-    //   // если чекбокс включен 
-    //   if (isCheckboxEnable) {
-    //     localStorage.setItem("isCheckboxEnable", "enable");
-    //     const filteredShortMovies = filteredByDuration(filteredMovies, value);
-    //     localStorage.setItem("foundShortMovies", JSON.stringify(filteredShortMovies));
-    //   } else {
-    //     localStorage.setItem("isCheckboxEnable", "disable");
-    //   }
-
-    //   isCheckboxEnable ? setMovies(JSON.parse(localStorage.getItem("foundShortMovies"))) : setMovies(JSON.parse(localStorage.getItem("foundMovies")));
-    // }
-
   }
 
   function filteredByName(movies, searchValue) {

@@ -28,8 +28,6 @@ export default function SavedMovies(props) {
     if (isCheckboxEnable) {
       const filteredShortMovies = filteredByDuration(filteredMovies);
 
-      console.log(filteredShortMovies);
-
       // проверка на пустой массив
       if (filteredShortMovies.length !== 0) {
         setIsSearchError("");
@@ -40,11 +38,16 @@ export default function SavedMovies(props) {
       localStorage.setItem("foundSavedShortMovies", JSON.stringify(filteredShortMovies));
     }
 
-    isCheckboxEnable ? setMovies(JSON.parse(localStorage.getItem("foundSavedShortMovies"))) : setMovies(JSON.parse(localStorage.getItem("foundSavedMovies")));
+    if (isCheckboxEnable) {
+      setMovies(JSON.parse(localStorage.getItem("foundSavedShortMovies")))
+    } else {
+      setMovies(JSON.parse(localStorage.getItem("foundSavedMovies")))
+    }
+
   }, [isCheckboxEnable, props.savedFilms])
 
   React.useEffect(() => {
-    if (searchValue) {
+    if (searchValue || searchValue === '') {
       updateMovies(searchValue);
     } else {
       setMovies(props.savedFilms);
