@@ -13,18 +13,6 @@ export default function SavedMovies(props) {
   const [isCheckboxEnable, setCheckBoxEnable] = React.useState(false);
   const [isSearchError, setIsSearchError] = React.useState("");
 
-  function filteredByName(movies, searchValue) {
-    return movies.filter(film => {
-      return film.nameRU.toLowerCase().includes(searchValue.toLowerCase())
-    })
-  }
-
-  function filteredByDuration(movies) {
-    return movies.filter((item) => {
-      return item.duration <= 40;
-    })
-  }
-
   const updateMovies = React.useCallback((value) => {
     const filteredMovies = filteredByName(props.savedFilms, value);
     localStorage.setItem("foundSavedMovies", JSON.stringify(filteredMovies));
@@ -39,6 +27,16 @@ export default function SavedMovies(props) {
 
     if (isCheckboxEnable) {
       const filteredShortMovies = filteredByDuration(filteredMovies);
+
+      console.log(filteredShortMovies);
+
+      // проверка на пустой массив
+      if (filteredShortMovies.length !== 0) {
+        setIsSearchError("");
+      } else {
+        setIsSearchError("Вы ещё не сохранили фильмы с таким названием");
+      }
+
       localStorage.setItem("foundSavedShortMovies", JSON.stringify(filteredShortMovies));
     }
 
@@ -46,7 +44,6 @@ export default function SavedMovies(props) {
   }, [isCheckboxEnable, props.savedFilms])
 
   React.useEffect(() => {
-
     if (searchValue) {
       updateMovies(searchValue);
     } else {
@@ -55,9 +52,20 @@ export default function SavedMovies(props) {
 
   }, [props.savedFilms, searchValue, updateMovies])
 
-  function handleSearch(value) {
+  function filteredByName(movies, searchValue) {
+    return movies.filter(film => {
+      return film.nameRU.toLowerCase().includes(searchValue.toLowerCase())
+    })
+  }
 
-    if (value) {
+  function filteredByDuration(movies) {
+    return movies.filter((item) => {
+      return item.duration <= 40;
+    })
+  }
+
+  function handleSearch(value) {
+    if (value || value === '') {
       setSearchValue(value);
       localStorage.setItem("savedMovieValue", value);
       updateMovies(value);
@@ -69,7 +77,6 @@ export default function SavedMovies(props) {
   function toggleCheckbox() {
     setCheckBoxEnable(!isCheckboxEnable);
   }
-
 
   return (
     <div className="movies">

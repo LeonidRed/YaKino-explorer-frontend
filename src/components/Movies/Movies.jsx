@@ -16,7 +16,9 @@ export default function Movies(props) {
   const [isCheckboxEnable, setCheckBoxEnable] = React.useState(false);
   const [isSearchError, setIsSearchError] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
-  const [isFirstSearch, setIsFirstSearch] = React.useState(false)
+  const [isFirstSearch, setIsFirstSearch] = React.useState(false);
+
+  // console.log(props);
 
   React.useEffect(() => {
     if (pathname === "/movies") {
@@ -56,6 +58,12 @@ export default function Movies(props) {
       if (isCheckboxEnable) {
         localStorage.setItem("isCheckboxEnable", "enable");
         const filteredShortMovies = filteredByDuration(filteredMovies, value);
+        // проверка на пустой массив при поиске
+        if (filteredShortMovies.length !== 0) {
+          setIsSearchError("");
+        } else {
+          setIsSearchError("Нет фильмов по Вашему запросу");
+        }
         localStorage.setItem("foundShortMovies", JSON.stringify(filteredShortMovies));
       } else {
         localStorage.setItem("isCheckboxEnable", "disable");
@@ -133,7 +141,7 @@ export default function Movies(props) {
     <div className="movies">
       <HeaderLogin />
       <main>
-        <SearchForm onMovieSearch={props.onMovieSearch}
+        <SearchForm
           searchValue={searchValue}
           handleSearch={handleSearch}
           isCheckboxEnable={isCheckboxEnable}
