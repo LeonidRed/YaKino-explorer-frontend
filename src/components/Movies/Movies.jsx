@@ -21,26 +21,28 @@ export default function Movies(props) {
   // console.log(props);
 
   React.useEffect(() => {
-    if (pathname === "/movies") {
-      if (localStorage.getItem("inputSearchValue")) {
-        setSearchValue(localStorage.getItem("inputSearchValue"));
-      }
+    if (localStorage.getItem("inputSearchValue")) {
+      setSearchValue(localStorage.getItem("inputSearchValue"));
+    }
 
-      if (localStorage.getItem("isCheckboxEnable") === "enable") {
-        setCheckBoxEnable(true);
-        setMovies(JSON.parse(localStorage.getItem("foundShortMovies")));
-      }
-
-      if (localStorage.getItem("isCheckboxEnable") === "disable") {
-        setCheckBoxEnable(false);
-        setMovies(JSON.parse(localStorage.getItem("foundMovies")));
+    if (localStorage.getItem("isCheckboxEnable") === "enable") {
+      setCheckBoxEnable(true);
+      setMovies(JSON.parse(localStorage.getItem("foundShortMovies")));
+      if (JSON.parse(localStorage.getItem("foundShortMovies").length === 2)) {
+        setIsSearchError("Нет фильмов по Вашему запросу");
       }
     }
-  }, [pathname])
+
+    if (localStorage.getItem("isCheckboxEnable") === "disable") {
+      setCheckBoxEnable(false);
+      setMovies(JSON.parse(localStorage.getItem("foundMovies")));
+    }
+  }, [])
+
 
   function updateMovies(allMovies, value) {
     if (value || value === '') {
-
+      // if (value) {
       setSearchValue(value);
       localStorage.setItem("inputSearchValue", value);
 
@@ -61,20 +63,65 @@ export default function Movies(props) {
         // проверка на пустой массив при поиске
         if (filteredShortMovies.length !== 0) {
           setIsSearchError("");
+          localStorage.setItem("foundShortMovies", JSON.stringify(filteredShortMovies));
+          setMovies(JSON.parse(localStorage.getItem("foundShortMovies")))
         } else {
           setIsSearchError("Нет фильмов по Вашему запросу");
+          localStorage.setItem("foundShortMovies", JSON.stringify(filteredShortMovies));
         }
-        localStorage.setItem("foundShortMovies", JSON.stringify(filteredShortMovies));
+        // localStorage.setItem("foundShortMovies", JSON.stringify(filteredShortMovies));
       } else {
         localStorage.setItem("isCheckboxEnable", "disable");
+        setMovies(JSON.parse(localStorage.getItem("foundMovies")))
+
       }
 
-      isCheckboxEnable ? setMovies(JSON.parse(localStorage.getItem("foundShortMovies"))) : setMovies(JSON.parse(localStorage.getItem("foundMovies")));
+      // if (isCheckboxEnable) {
+      //   setMovies(JSON.parse(localStorage.getItem("foundShortMovies")))
+      // } else {
+      //   setMovies(JSON.parse(localStorage.getItem("foundMovies")))
+      // }
+
+
+      // isCheckboxEnable ? setMovies(JSON.parse(localStorage.getItem("foundShortMovies"))) : setMovies(JSON.parse(localStorage.getItem("foundMovies")));
     }
 
-    // else {
-    //   setSearchValue('');
+    // else if (value === '') {
+
+    //   setSearchValue(localStorage.getItem("inputSearchValue"));
+    //   console.log('here searchValue =', value);
+
+
     //   localStorage.setItem("inputSearchValue", '')
+
+    //   console.log('here searchValue =');
+
+
+    //   const filteredMovies = filteredByName(allMovies, '');
+    //   localStorage.setItem("foundMovies", JSON.stringify(filteredMovies));
+
+    //   if (filteredMovies.length !== 0) {
+    //     setIsSearchError("");
+    //     setMovies(filteredMovies);
+    //   } else {
+    //     setIsSearchError("Ничего не удалось найти");
+    //     setMovies([]);
+    //   }
+    //   // если чекбокс включен 
+    //   if (isCheckboxEnable) {
+    //     localStorage.setItem("isCheckboxEnable", "enable");
+    //     const filteredShortMovies = filteredByDuration(filteredMovies, value);
+    //     localStorage.setItem("foundShortMovies", JSON.stringify(filteredShortMovies));
+    //   } else {
+    //     localStorage.setItem("isCheckboxEnable", "disable");
+    //   }
+
+    //   isCheckboxEnable ? setMovies(JSON.parse(localStorage.getItem("foundShortMovies"))) : setMovies(JSON.parse(localStorage.getItem("foundMovies")));
+    // }
+
+    // else {
+    //   setSearchValue(localStorage.getItem("inputSearchValue"));
+    //   localStorage.setItem("inputSearchValue", searchValue)
 
     //   const filteredMovies = filteredByName(allMovies, '');
     //   localStorage.setItem("foundMovies", JSON.stringify(filteredMovies));

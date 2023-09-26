@@ -1,17 +1,33 @@
 import './SearchForm.css';
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 export default function SearchForm(props) {
+  const { pathname } = useLocation();
+
   const [values, setValues] = React.useState('');
+
+  // console.log(props);
+  // console.log(values.searchValue);
+
 
   // установим значение для поиска после перезагрузки
   React.useEffect(() => {
     setValues({ searchValue: props.searchValue });
   }, [props.searchValue, setValues]);
 
+  console.log(values);
+
+
   React.useEffect(() => {
-    props.handleSearch(values.searchValue);
+    console.log(values.searchValue);
+    // props.handleSearch(values.searchValue);
+    props.handleSearch(localStorage.getItem("inputSearchValue"));
+
+    // debugger
   }, [props.isCheckboxEnable]);
+  // }, []);
+  // } 
 
   function handleChange(event) {
     const target = event.target;
