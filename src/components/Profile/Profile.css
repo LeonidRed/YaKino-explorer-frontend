@@ -104,6 +104,13 @@
   border-bottom: 1px solid #3456F3;
 }
 
+.profile__input-error {
+  margin: 6px 0 0 0;
+  font-size: 10px;
+  color: #FF3055;
+  height: 11.5px;
+}
+
 .profile__buttons {
   display: flex;
   flex-direction: column;
@@ -138,6 +145,11 @@
 .profile__button-edit:hover {
   cursor: pointer;
   opacity: 0.3;
+}
+
+.profile__button-edit_disabled {
+  color: #C2C2C2;
+  pointer-events: none
 }
 
 .profile__button-exit {

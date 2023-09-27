@@ -1,10 +1,9 @@
 import './Header.css';
 import logo from '../../images/header-logo.svg';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Header(props) {
-  const { pathname } = useLocation()
-  console.log(pathname)
+
   return (
     <header className="header">
       <div className="header__container">

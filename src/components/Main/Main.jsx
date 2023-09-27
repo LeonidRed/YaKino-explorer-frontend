@@ -6,11 +6,14 @@ import Techs from "./Techs/Techs";
 import AboutMe from "./AboutMe/AboutMe";
 import Portfolio from "./Portfolio/Portfolio";
 import Footer from "../Footer/Footer";
+import HeaderLogin from '../Movies/HeaderLogin/HeaderLogin';
 
-export default function Main() {
+export default function Main(props) {
+
   return (
     <>
-      <Header />
+      {props.isLogged ? <HeaderLogin isLogged={props.isLogged} /> : <Header />}
+      {/* <Header /> */}
       <main className="content">
         <Promo />
         <AboutProject />

@@ -1,13 +1,24 @@
-import './SavedMoviesCardList.css'
+import './SavedMoviesCardList.css';
+import React from 'react';
 import SavedMoviesCard from '../SavedMoviesCard/SavedMoviesCard'
 
 
-export default function SavedMoviesCardList() {
+export default function SavedMoviesCardList(props) {
+
+  React.useEffect(() => {
+    props.getSavedFilms();
+  }, []);
+
   return (
     <ul className="movies-card-list">
-      <SavedMoviesCard />
-      <SavedMoviesCard />
-      <SavedMoviesCard />
+      {props.savedFilms.map(film => (
+        <SavedMoviesCard
+          film={film}
+          key={film._id}
+          handleDeleteLikeFilm={props.handleDeleteLikeFilm}
+        />
+      ))
+      }
     </ul>
   );
 };

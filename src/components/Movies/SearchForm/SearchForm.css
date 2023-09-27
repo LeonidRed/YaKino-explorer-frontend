@@ -68,6 +68,12 @@
   opacity: 0.8;
 }
 
+.search-form__input-btn-disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+  pointer-events: none
+}
+
 .search-form__toggle-container {
   display: flex;
   gap: 14px;
@@ -140,6 +146,10 @@
 .search-form__toggle-btn:checked {
   background-color: #2BE080;
 }
+
+/* .search-form__toggle-btn-active {
+  background-color: #2BE080;
+} */
 
 .search-form__toggle-btn:hover {
   opacity: 0.3;
